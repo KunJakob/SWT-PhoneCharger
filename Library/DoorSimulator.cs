@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DoorSimulator
+namespace Door
 {
     public class DoorClassSimulator : IDoor
     {
 
-        public bool IsDoorUnlocked { get; set; }
+        private bool IsDoorUnlocked { get; set; }
         public DoorClassSimulator()
         {
             IsDoorUnlocked = true;
