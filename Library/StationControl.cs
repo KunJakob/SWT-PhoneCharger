@@ -10,6 +10,12 @@ namespace Ladeskab
 {
     public class StationControl
     {
+        public StationControl(IDoor Door, IChargeControl ChargeControl)
+        {
+            _door = Door;
+            _charger = ChargeControl;
+        }
+
         // Enum med tilstande ("states") svarende til tilstandsdiagrammet for klassen
         private enum LadeskabState
         {

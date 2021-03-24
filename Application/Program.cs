@@ -1,11 +1,22 @@
-﻿using System;
+﻿using Ladeskab.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 
 class Program
 {
+
+
     static void Main(string[] args)
     {
-        // Assemble your system here from all the classes
+        //set up DI
+        ServiceProvider ServiceProvider;
+        ServiceCollection services = new ServiceCollection();
+        ConfigureServices(services);
+        ServiceProvider = services.BuildServiceProvider();
 
+        //local vars
+        IDoor door = ServiceProvider.GetService<IDoor>();
+        IRfidReader rfidReader = ServiceProvider.GetService<IRfidReader>();
         bool finish = false;
         do
         {
@@ -42,5 +53,12 @@ class Program
 
         } while (!finish);
     }
+
+    static void ConfigureServices(ServiceCollection services)
+    {
+
+        services.AddSingleton<IDoor>(new Door());
+
+    }
 }
-}
+
