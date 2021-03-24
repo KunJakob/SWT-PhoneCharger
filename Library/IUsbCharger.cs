@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Ladeskab.Interfaces;
+using System;
 
-namespace UsbSimulator
+namespace UsbChargerSimulatorNS
 {
     public class CurrentEventArgs : EventArgs
     {
@@ -8,7 +9,7 @@ namespace UsbSimulator
         public double Current { set; get; }
     }
 
-    public interface IUsbCharger
+    public interface IUsbCharger : IChargeControl
     {
         // Event triggered on new current value
         event EventHandler<CurrentEventArgs> CurrentValueEvent;

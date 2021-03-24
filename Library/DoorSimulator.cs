@@ -10,11 +10,9 @@ namespace DoorSimulator
     {
 
         public bool IsDoorUnlocked { get; set; }
-        public bool IsDoorOpen { get; set; }
         public DoorClassSimulator()
         {
             IsDoorUnlocked = true;
-            IsDoorOpen = false;
         }
 
         public void LockDoor()
@@ -24,27 +22,6 @@ namespace DoorSimulator
         public void UnlockDoor()
         {
             IsDoorUnlocked = true;
-        }
-
-        public void OnDoorClose()
-        {
-            if (IsDoorUnlocked)
-            {
-                if (IsDoorOpen)
-                {
-                    IsDoorOpen = false;
-                    Console.WriteLine("Door is closed");
-                }
-            }
-        }
-
-        public void OnDoorOpen()
-        { 
-            if (!IsDoorOpen) 
-            { 
-                IsDoorOpen = true;
-                Console.WriteLine("Door is open, please connect your phone to the charger.");
-            }
         }
 
     }

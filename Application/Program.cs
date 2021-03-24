@@ -3,6 +3,8 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using DoorSimulator;
 using RfidSimulator;
+using Ladeskab;
+using UsbChargerSimulatorNS;
 
 class Program
 {
@@ -16,8 +18,8 @@ class Program
         ServiceProvider = services.BuildServiceProvider();
 
         //local vars
-        IDoor door = ServiceProvider.GetService<IDoor>();
-        IRfidReader rfidReader = ServiceProvider.GetService<RfidReaderSimulator>();
+        StationControl door = new StationControl(ServiceProvider.GetService<IDoor>(),ServiceProvider.GetService<IChargeControl>());
+        IRfidReader rfidReader = new RfidReaderSimulator(door);
         bool finish = false;
         do
         {
@@ -56,8 +58,8 @@ class Program
 
     static void ConfigureServices(ServiceCollection services)
     {
-
         services.AddSingleton<IDoor>(new DoorClassSimulator());
+        services.AddSingleton<IChargeControl>(new UsbChargerSimulator());
 
     }
 }

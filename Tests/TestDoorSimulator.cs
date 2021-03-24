@@ -39,39 +39,5 @@ namespace DoorSimulator.Test
             Assert.That(_uut.IsDoorUnlocked, Is.EqualTo(false));
         }
 
-        [Test]
-        public void Simulate_UnlockedDoor_OnDoorOpen_ReturnsOpen()
-        {
-            _uut.UnlockDoor();
-            _uut.OnDoorOpen();
-            Assert.That(_uut.IsDoorOpen, Is.EqualTo(true));
-        }
-
-        [Test]
-        public void Simulate_LockedDoor_OnDoorOpen_ReturnsClosed()
-        {
-            _uut.LockDoor();
-            _uut.OnDoorOpen();
-            Assert.That(_uut.IsDoorOpen, Is.EqualTo(false));
-        }
-
-        [Test]
-        public void Simulate_UnlockedDoor_OnDoorClose_ReturnsClosed()
-        {
-            _uut.UnlockDoor();
-            _uut.OnDoorClose();
-            Assert.That(_uut.IsDoorOpen, Is.EqualTo(false));
-        }
-
-        [Test]
-        public void Simulate_LockedDoor_OnDoorClose_ReturnsOpen()
-        {
-            _uut.UnlockDoor();
-            _uut.OnDoorOpen();
-            _uut.LockDoor();
-            _uut.OnDoorClose();
-            Assert.That(_uut.IsDoorOpen, Is.EqualTo(true));
-        }
-
     }
 }

@@ -9,10 +9,6 @@ namespace DoorSimulator
     public interface IDoor
     {
         public bool IsDoorUnlocked { get; set; }
-        public bool IsDoorOpen { get; set; }
-
-        public void OnDoorOpen();
-        public void OnDoorClose();
         public void LockDoor();
         public void UnlockDoor();
     }

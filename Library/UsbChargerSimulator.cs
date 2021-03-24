@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Timers;
 
-namespace UsbSimulator
+namespace UsbChargerSimulatorNS
 {
     public class UsbChargerSimulator : IUsbCharger
     {
@@ -16,11 +16,11 @@ namespace UsbSimulator
 
         public double CurrentValue { get; private set; }
 
-        public bool Connected { get; private set; }
+        public bool Connected { get; set; }
 
         private bool _overload;
         private bool _charging;
-        private System.Timers.Timer _timer;
+        private Timer _timer;
         private int _ticksSinceStart;
 
         public UsbChargerSimulator()
@@ -29,7 +29,7 @@ namespace UsbSimulator
             Connected = true;
             _overload = false;
 
-            _timer = new System.Timers.Timer();
+            _timer = new Timer();
             _timer.Enabled = false;
             _timer.Interval = CurrentTickInterval;
             _timer.Elapsed += TimerOnElapsed;
@@ -49,6 +49,7 @@ namespace UsbSimulator
                 }
                 else if (Connected && _overload)
                 {
+
                     CurrentValue = OverloadCurrent;
                 }
                 else if (!Connected)

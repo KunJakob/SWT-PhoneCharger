@@ -15,6 +15,8 @@ namespace Ladeskab
         {
             _door = Door;
             _charger = ChargeControl;
+            _charger.Connected = false;
+            _state = LadeskabState.Available;
         }
 
         // Enum med tilstande ("states") svarende til tilstandsdiagrammet for klassen
@@ -98,21 +100,34 @@ namespace Ladeskab
         // Her mangler de andre trigger handlere
         public void OnDoorClose()
         {
-            if (_door.IsDoorUnlocked)
+            if (_state == LadeskabState.Locked)
             {
-                if (_door.IsDoorOpen)
-                {
-                    _door.IsDoorOpen = false;
-                    Console.WriteLine("Door is closed");
-                }
+                Console.WriteLine("Door is Locked, please scan your RFID card to open.");
+                return;
             }
+            if (_state == LadeskabState.Available)
+            {
+                Console.WriteLine("You close the door without locking it.");
+                return;
+            }
+            if (_state == LadeskabState.DoorOpen)
+            {
+                Console.WriteLine("Please scan your RFID card to lock.");
+                _state = LadeskabState.Available;
+            }
+            
         }
 
         public void OnDoorOpen()
         {
-            if (!_door.IsDoorOpen)
+            if(_state == LadeskabState.Locked)
             {
-                _door.IsDoorOpen = true;
+                Console.WriteLine("Door is locked, scan your RFID card to open.");
+                return;
+            }
+            if (_state != LadeskabState.DoorOpen)
+            {
+                _state = LadeskabState.DoorOpen;
                 Console.WriteLine("Door is open, type \"ok\" to connect your phone to the charger.");
                 string input = Console.ReadLine();
                 if (input == "ok")
@@ -120,6 +135,11 @@ namespace Ladeskab
                     _charger.Connected = true;
                 }
             }
+        }
+
+        public void OnRfidReadEvent(int id)
+        {
+            RfidDetected(id);
         }
     }
 }

@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using NSubstitute;
+using Ladeskab;
 
 namespace RfidSimulator.Test
 {
@@ -15,7 +17,8 @@ namespace RfidSimulator.Test
         [SetUp]
         public void Setup()
         {
-            _uut = new RfidReaderSimulator();
+            var SC = Substitute.For<StationControl>();
+            _uut = new RfidReaderSimulator(SC);
         }
 
 
