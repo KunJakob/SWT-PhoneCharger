@@ -1,6 +1,7 @@
 ﻿using Ladeskab.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using DoorSimulator;
 
 class Program
 {

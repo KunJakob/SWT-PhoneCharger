@@ -8,6 +8,12 @@ namespace DoorSimulator
 {
     public class DoorSimulator : IDoor
     {
+
+        
+
+        public bool IsDoorOpended { get; private set; }
+
+        
         public void LockDoor()
         {
             throw new NotImplementedException();
