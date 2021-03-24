@@ -1,6 +1,6 @@
 using NUnit.Framework;
 
-namespace SWT_PhoneCharger
+namespace Tests
 {
     public class Tests
     {
