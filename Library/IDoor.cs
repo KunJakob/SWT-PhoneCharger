@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Door
+namespace Ladeskab.Door
 {
     public interface IDoor
     {
+        public void OnDoorOpen();
+        public void OnDoorClose();
         public void LockDoor();
         public void UnlockDoor();
     }

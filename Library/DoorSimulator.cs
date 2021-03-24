@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Door
+namespace Ladeskab.Door
 {
     public class DoorClassSimulator : IDoor
     {
@@ -24,5 +24,14 @@ namespace Door
             IsDoorUnlocked = true;
         }
 
+        public void OnDoorOpen()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OnDoorClose()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

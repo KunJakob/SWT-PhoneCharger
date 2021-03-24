@@ -1,14 +1,9 @@
-﻿using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using Ladeskab.ChargeControl;
+using Ladeskab.Door;
+using Ladeskab.RfidReader;
+using Ladeskab.StationControl;
 using NSubstitute;
-using Ladeskab;
-using Ladeskab.Interfaces;
-using DoorSimulator;
+using NUnit.Framework;
 
 namespace RfidSimulator.Test
 {
@@ -20,10 +15,7 @@ namespace RfidSimulator.Test
         [SetUp]
         public void Setup()
         {
-            var Door = Substitute.For<IDoor>();
-            var CC = Substitute.For<IChargeControl>();
-            var SC = Substitute.For<StationControl>(Door, CC);
-            _uut = new RfidReaderSimulator(SC);
+            _uut = new RfidReaderSimulator();
 
         }
 

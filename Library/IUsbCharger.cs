@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace UsbCharger
+namespace Ladeskab.UsbCharger
 {
     public class CurrentEventArgs : EventArgs
     {

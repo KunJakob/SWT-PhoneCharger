@@ -1,5 +1,5 @@
-﻿using ChargeControl;
-using Door;
+﻿using Ladeskab.ChargeControl;
+using Ladeskab.Door;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StationControl
+namespace Ladeskab.StationControl
 {
     public class StationControl
     {
@@ -25,7 +25,7 @@ namespace StationControl
         private LadeskabState _state;
         private IChargeControl _charger;
         private int _oldId;
-        private IDoor _door;
+        private readonly IDoor _door;
 
         private string logFile = "logfile.txt"; // Navnet på systemets log-fil
 

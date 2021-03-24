@@ -1,9 +1,11 @@
 ﻿
-using ChargeControl;
-using Door;
+using Ladeskab.ChargeControl;
+using Ladeskab.Door;
 using Microsoft.Extensions.DependencyInjection;
-using RfidReader;
+using Ladeskab.RfidReader;
 using System;
+using Ladeskab.UsbCharger;
+using Ladeskab.StationControl;
 
 class Program
 {
@@ -15,7 +17,8 @@ class Program
         ServiceCollection services = new ServiceCollection();
         ConfigureServices(services);
         ServiceProvider = services.BuildServiceProvider();
-
+        IDoor door = ServiceProvider.GetService<IDoor>();
+        IRfidReader rfidReader = ServiceProvider.GetService<IRfidReader>();
         //local vars
         bool finish = false;
         do
@@ -55,8 +58,10 @@ class Program
 
     static void ConfigureServices(ServiceCollection services)
     {
+        services.AddSingleton<StationControl>();
         services.AddSingleton<IDoor, DoorClassSimulator>();
         services.AddSingleton<IChargeControl, ChargeControl>();
         services.AddSingleton<IRfidReader, RfidReaderSimulator>();
+        services.AddSingleton<IUsbCharger, UsbChargerSimulator>();
     }
 }
