@@ -6,32 +6,46 @@ using System.Threading.Tasks;
 
 namespace DoorSimulator
 {
-    public class DoorSimulator : IDoor
+    public class DoorClassSimulator : IDoor
     {
 
-        
+        public bool IsDoorUnlocked { get; set; }
+        public bool IsDoorOpen { get; set; }
+        public DoorClassSimulator()
+        {
+            IsDoorUnlocked = true;
+            IsDoorOpen = false;
+        }
 
-        public bool IsDoorOpended { get; private set; }
-
-        
         public void LockDoor()
         {
-            throw new NotImplementedException();
+            IsDoorUnlocked = false;
+        }
+        public void UnlockDoor()
+        {
+            IsDoorUnlocked = true;
         }
 
         public void OnDoorClose()
         {
-            throw new NotImplementedException();
+            if (IsDoorUnlocked)
+            {
+                if (IsDoorOpen)
+                {
+                    IsDoorOpen = false;
+                    Console.WriteLine("Door is closed");
+                }
+            }
         }
 
         public void OnDoorOpen()
-        {
-            throw new NotImplementedException();
+        { 
+            if (!IsDoorOpen) 
+            { 
+                IsDoorOpen = true;
+                Console.WriteLine("Door is open, please connect your phone to the charger.");
+            }
         }
 
-        public void UnlockDoor()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

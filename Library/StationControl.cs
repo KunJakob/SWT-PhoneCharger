@@ -93,8 +93,33 @@ namespace Ladeskab
                     break;
             }
         }
-       
- 
+
+
         // Her mangler de andre trigger handlere
+        public void OnDoorClose()
+        {
+            if (_door.IsDoorUnlocked)
+            {
+                if (_door.IsDoorOpen)
+                {
+                    _door.IsDoorOpen = false;
+                    Console.WriteLine("Door is closed");
+                }
+            }
+        }
+
+        public void OnDoorOpen()
+        {
+            if (!_door.IsDoorOpen)
+            {
+                _door.IsDoorOpen = true;
+                Console.WriteLine("Door is open, type \"ok\" to connect your phone to the charger.");
+                string input = Console.ReadLine();
+                if (input == "ok")
+                {
+                    _charger.Connected = true;
+                }
+            }
+        }
     }
 }

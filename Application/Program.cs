@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using DoorSimulator;
+using RfidSimulator;
 
 class Program
 {
@@ -16,7 +17,7 @@ class Program
 
         //local vars
         IDoor door = ServiceProvider.GetService<IDoor>();
-        IRfidReader rfidReader = ServiceProvider.GetService<IRfidReader>();
+        IRfidReader rfidReader = ServiceProvider.GetService<RfidReaderSimulator>();
         bool finish = false;
         do
         {
@@ -56,7 +57,7 @@ class Program
     static void ConfigureServices(ServiceCollection services)
     {
 
-        services.AddSingleton<IDoor>(new Door());
+        services.AddSingleton<IDoor>(new DoorClassSimulator());
 
     }
 }
