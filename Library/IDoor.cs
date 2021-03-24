@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ladeskab.Interfaces
+namespace DoorSimulator
 {
     public interface IDoor
     {
@@ -19,22 +19,26 @@ namespace Ladeskab.Interfaces
     {
         public void LockDoor()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Door is locked");
+            //throw new NotImplementedException();
         }
 
         public void OnDoorClose()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Door is closed");
+            //throw new NotImplementedException();
         }
 
         public void OnDoorOpen()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Door is opened");
+            //throw new NotImplementedException();
         }
 
         public void UnlockDoor()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Door is unlocked");
+            //throw new NotImplementedException();
         }
     }
 }

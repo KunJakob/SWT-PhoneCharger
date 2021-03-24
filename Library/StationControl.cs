@@ -33,7 +33,11 @@ namespace Ladeskab
         private string logFile = "logfile.txt"; // Navnet på systemets log-fil
 
         // Her mangler constructor
+        //Tom constructor
+        public StationControl()
+        {
 
+        }
         // Eksempel på event handler for eventet "RFID Detected" fra tilstandsdiagrammet for klassen
         private void RfidDetected(int id)
         {
@@ -83,11 +87,13 @@ namespace Ladeskab
                     {
                         Console.WriteLine("Forkert RFID tag");
                     }
+                    
 
                     break;
             }
         }
-
+       
+ 
         // Her mangler de andre trigger handlere
     }
 }
