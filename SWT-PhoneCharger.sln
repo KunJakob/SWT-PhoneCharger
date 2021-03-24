@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31025.194
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SWT-PhoneCharger", "SWT-PhoneCharger\SWT-PhoneCharger.csproj", "{602A4364-6393-4199-A7C3-E18EEEC48737}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "SWT-PhoneCharger\Tests.csproj", "{602A4364-6393-4199-A7C3-E18EEEC48737}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Application\Application.csproj", "{2AA6E5D4-B3FD-464E-95D7-42D5DA81D2B6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library", "Library\Library.csproj", "{AD359C19-56A9-4A34-9139-86D773284FDB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{602A4364-6393-4199-A7C3-E18EEEC48737}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{602A4364-6393-4199-A7C3-E18EEEC48737}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{602A4364-6393-4199-A7C3-E18EEEC48737}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2AA6E5D4-B3FD-464E-95D7-42D5DA81D2B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2AA6E5D4-B3FD-464E-95D7-42D5DA81D2B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2AA6E5D4-B3FD-464E-95D7-42D5DA81D2B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2AA6E5D4-B3FD-464E-95D7-42D5DA81D2B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD359C19-56A9-4A34-9139-86D773284FDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD359C19-56A9-4A34-9139-86D773284FDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD359C19-56A9-4A34-9139-86D773284FDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD359C19-56A9-4A34-9139-86D773284FDB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
