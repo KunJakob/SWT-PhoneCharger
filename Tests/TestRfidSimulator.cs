@@ -7,6 +7,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using NSubstitute;
 using Ladeskab;
+using Ladeskab.Interfaces;
+using DoorSimulator;
 
 namespace RfidSimulator.Test
 {
@@ -14,11 +16,15 @@ namespace RfidSimulator.Test
     public class TestRfidSimulator
     {
         private RfidReaderSimulator _uut;
+
         [SetUp]
         public void Setup()
         {
-            var SC = Substitute.For<StationControl>();
+            var Door = Substitute.For<IDoor>();
+            var CC = Substitute.For<IChargeControl>();
+            var SC = Substitute.For<StationControl>(Door, CC);
             _uut = new RfidReaderSimulator(SC);
+
         }
 
 

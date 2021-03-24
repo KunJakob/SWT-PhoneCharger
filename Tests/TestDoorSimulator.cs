@@ -23,8 +23,6 @@ namespace DoorSimulator.Test
 
         }
 
-        
-
         [Test]
         public void Simulate_Door_Open()
         {
