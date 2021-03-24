@@ -5,7 +5,6 @@ using System;
 class Program
 {
 
-
     static void Main(string[] args)
     {
         //set up DI
@@ -20,9 +19,8 @@ class Program
         bool finish = false;
         do
         {
-            string input;
-            System.Console.WriteLine("Indtast E, O, C, R: ");
-            input = Console.ReadLine();
+            Console.WriteLine("Indtast E, O, C, R: ");
+            string input = Console.ReadLine();
             if (string.IsNullOrEmpty(input)) continue;
 
             switch (input[0])
@@ -40,7 +38,7 @@ class Program
                     break;
 
                 case 'R':
-                    System.Console.WriteLine("Indtast RFID id: ");
+                    Console.WriteLine("Indtast RFID id: ");
                     string idString = System.Console.ReadLine();
 
                     int id = Convert.ToInt32(idString);
