@@ -8,45 +8,61 @@ namespace Ladeskab.Door
 
 
 
+        private enum LockState
+        {
+            LOCKED,
+            UNLOCKED
+        }
 
+        private LockState _lockState;
 
         public Door()
         {
+            _lockState = LockState.UNLOCKED;
         }
 
-        public event EventHandler<DoorOpenEventArgs> DoorChangeEvent;
-        public event EventHandler<DoorLockEventArgs> DoorLockEvent;
+        public event EventHandler<DoorChangeEventArgs> DoorChangeEvent;
 
-        protected virtual void OnDoorChange(DoorOpenEventArgs e)
+        protected virtual void OnDoorChange(DoorChangeEventArgs e)
         {
             DoorChangeEvent?.Invoke(this, e);
         }
 
-        protected virtual void OnDoorLock(DoorLockEventArgs e)
-        {
-            DoorLockEvent?.Invoke(this, e);
-        }
-
-
         public void LockDoor()
         {
-            OnDoorLock(new DoorLockEventArgs() { isLocked = true });
+            _lockState = LockState.LOCKED;
         }
         public void UnlockDoor()
         {
-            OnDoorLock(new DoorLockEventArgs() { isLocked = false });
+            _lockState = LockState.UNLOCKED;
         }
 
-        public void OpenDoor()
+        public bool OpenDoor()
         {
-            OnDoorChange(new DoorOpenEventArgs { IsOpen = true });
-
+            if (_lockState == LockState.UNLOCKED)
+            {
+                OnDoorChange(new DoorChangeEventArgs { IsOpen = true });
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
-        public void CloseDoor()
+        public bool CloseDoor()
         {
-            OnDoorChange(new DoorOpenEventArgs { IsOpen = false });
-        }
+            //Probably can't happen, but added for insurance
+            if (_lockState == LockState.UNLOCKED)
+            {
+                OnDoorChange(new DoorChangeEventArgs { IsOpen = false });
+                return true;
+            }
+            else
+            {
+                return false;
+            }
 
+        }
     }
 }

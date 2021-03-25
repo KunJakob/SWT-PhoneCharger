@@ -6,14 +6,9 @@ namespace Ladeskab.Events
     {
         public int Id { get; set; }
     }
-    public class DoorOpenEventArgs : EventArgs
+    public class DoorChangeEventArgs : EventArgs
     {
         public bool IsOpen { get; set; }
-    }
-
-    public class DoorLockEventArgs : EventArgs
-    {
-        public bool isLocked { get; set; }
     }
 
     public class CurrentEventArgs : EventArgs

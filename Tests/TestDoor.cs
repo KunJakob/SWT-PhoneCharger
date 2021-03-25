@@ -19,58 +19,31 @@ namespace DoorSimulator.Test
         }
 
         [Test]
-        public void LockDoor_Raises_Event_With_IsLocked_True()
+        public void LockDoor_Disables_Door_Open_And_Close()
         {
-
-            bool WasRaised = false;
-            bool IsLocked = false;
-            object _sender = null;
-
-            void MockHandler(object sender, DoorLockEventArgs e)
-            {
-                WasRaised = true;
-                IsLocked = e.isLocked;
-                _sender = sender;
-            }
-
-            _uut.DoorLockEvent += MockHandler;
             _uut.LockDoor();
-
-            Assert.That(WasRaised, Is.EqualTo(true));
-            Assert.That(IsLocked, Is.EqualTo(true));
-            Assert.That(_sender, Is.EqualTo(_uut));
+            Assert.That(_uut.OpenDoor(), Is.EqualTo(false));
+            Assert.That(_uut.CloseDoor(), Is.EqualTo(false));
         }
 
         [Test]
-        public void Unlock_Door_Raises_Event_With_IsLocked_False()
+        public void UnLockDoor_Enables_Door_Open_And_Close()
         {
-            bool WasRaised = false;
-            bool IsLocked = true;
-            object _sender = null;
+            _uut.UnlockDoor();
+            Assert.That(_uut.OpenDoor(), Is.EqualTo(true));
+            Assert.That(_uut.CloseDoor(), Is.EqualTo(true));
+        }
 
-            void MockHandler(object sender, DoorLockEventArgs e)
-            {
-                WasRaised = true;
-                IsLocked = e.isLocked;
-                _sender = sender;
-            }
-
-            _uut.DoorLockEvent += MockHandler;
+        [Test]
+        public void OpenDoor_Raises_Event_If_Unlocked()
+        {
             _uut.UnlockDoor();
 
-            Assert.That(WasRaised, Is.EqualTo(true));
-            Assert.That(IsLocked, Is.EqualTo(false));
-            Assert.That(_sender, Is.EqualTo(_uut));
-        }
-
-        [Test]
-        public void OpenDoor_Raises_Event_With_IsOpen_True()
-        {
             bool WasRaised = false;
             bool IsOpen = false;
             object _sender = null;
 
-            void MockHandler(object sender, DoorOpenEventArgs e)
+            void MockHandler(object sender, DoorChangeEventArgs e)
             {
                 WasRaised = true;
                 IsOpen = e.IsOpen;
@@ -86,13 +59,39 @@ namespace DoorSimulator.Test
         }
 
         [Test]
-        public void CloseDoor_Raises_Event_With_IsOpen_False()
+        public void OpenDoor_Does_Not_Raise_Event_If_Locked()
+        {
+            bool WasRaised = false;
+            bool IsOpen = false;
+            object _sender = null;
+
+            _uut.LockDoor();
+
+            void MockHandler(object sender, DoorChangeEventArgs e)
+            {
+                WasRaised = true;
+                IsOpen = e.IsOpen;
+                _sender = sender;
+            }
+
+            _uut.DoorChangeEvent += MockHandler;
+            _uut.OpenDoor();
+
+            Assert.That(WasRaised, Is.EqualTo(false));
+            Assert.That(IsOpen, Is.EqualTo(false));
+            Assert.That(_sender, Is.EqualTo(null));
+        }
+
+        [Test]
+        public void CloseDoor_Raises_Event_If_Unlocked()
         {
             bool WasRaised = false;
             bool IsOpen = true;
             object _sender = null;
 
-            void MockHandler(object sender, DoorOpenEventArgs e)
+            _uut.UnlockDoor();
+
+            void MockHandler(object sender, DoorChangeEventArgs e)
             {
                 WasRaised = true;
                 IsOpen = e.IsOpen;
@@ -105,6 +104,30 @@ namespace DoorSimulator.Test
             Assert.That(WasRaised, Is.EqualTo(true));
             Assert.That(IsOpen, Is.EqualTo(false));
             Assert.That(_sender, Is.EqualTo(_uut));
+        }
+
+        [Test]
+        public void CloseDoor_Does_Not_Raise_Event_If_Locked()
+        {
+            bool WasRaised = false;
+            bool IsOpen = true;
+            object _sender = null;
+
+            _uut.LockDoor();
+
+            void MockHandler(object sender, DoorChangeEventArgs e)
+            {
+                WasRaised = true;
+                IsOpen = e.IsOpen;
+                _sender = sender;
+            }
+
+            _uut.DoorChangeEvent += MockHandler;
+            _uut.CloseDoor();
+
+            Assert.That(WasRaised, Is.EqualTo(false));
+            Assert.That(IsOpen, Is.EqualTo(true));
+            Assert.That(_sender, Is.EqualTo(null));
         }
 
 
