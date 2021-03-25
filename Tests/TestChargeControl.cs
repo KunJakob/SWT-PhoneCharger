@@ -34,7 +34,7 @@ namespace Tests
             //Act
             _mockUsbCharger.CurrentValueEvent += Raise.EventWith<CurrentEventArgs>(_mockUsbCharger, e);
             //Assert
-            _mockDisplay.Received().notifyCharge(ExpectedMessage);
+            _mockDisplay.Received().NotifyCharge(ExpectedMessage);
         }
         [Test]
         public void Connected_Returns_Usb_Connected()

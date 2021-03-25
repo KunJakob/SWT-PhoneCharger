@@ -29,9 +29,6 @@ namespace Ladeskab.StationControl
         private ILogger _logger;
         private IDisplay _display;
 
-        private readonly string logFile = "logfile.txt"; // Navnet på systemets log-fil
-
-
         public StationControl(IChargeControl Charger, IDoor Door, IRfidReader RfidReader, IDisplay Display, ILogger Logger)
         {
             _charger = Charger;
@@ -51,12 +48,12 @@ namespace Ladeskab.StationControl
                 case LadeskabState.Available:
                     if (e.IsOpen)
                         _state = LadeskabState.DoorOpen;
-                    _display.notifyStation("Connect your phone");
+                    _display.NotifyStation("Connect your phone");
                     break;
                 case LadeskabState.DoorOpen:
                     if (!e.IsOpen)
                         _state = LadeskabState.Available;
-                    _display.notifyStation("Scan RFID");
+                    _display.NotifyStation("Scan RFID");
                     break;
                 case LadeskabState.Locked:
                     //ignore
@@ -85,12 +82,12 @@ namespace Ladeskab.StationControl
                         _oldId = id;
                         _logger.WriteToLog("Locked with RFID: " + id);
 
-                        _display.notifyStation("The locker is locked and your phone is charging. Use your RFID tag to unlock it.");
+                        _display.NotifyStation("The locker is locked and your phone is charging. Use your RFID tag to unlock it.");
                         _state = LadeskabState.Locked;
                     }
                     else
                     {
-                        _display.notifyStation("Your phone is not connected properly. Try again");
+                        _display.NotifyStation("Your phone is not connected properly. Try again");
                     }
 
                     break;
@@ -109,12 +106,12 @@ namespace Ladeskab.StationControl
                         _logger.WriteToLog("Locker unlocked with RFID: " + id);
 
 
-                        _display.notifyStation("Grab your phone and close the door");
+                        _display.NotifyStation("Grab your phone and close the door");
                         _state = LadeskabState.Available;
                     }
                     else
                     {
-                        _display.notifyStation("Wrong RFID tag");
+                        _display.NotifyStation("Wrong RFID tag");
                     }
 
                     break;
