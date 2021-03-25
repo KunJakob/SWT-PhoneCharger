@@ -6,7 +6,7 @@ using Ladeskab.RfidReader;
 using System;
 using Ladeskab.UsbCharger;
 using Ladeskab.StationControl;
-using Ladeskab.Log;
+using Ladeskab.Logger;
 
 class Program
 {
