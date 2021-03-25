@@ -1,9 +1,8 @@
 ﻿using ChargerLocker.Events;
-using ChargerLocker.RfidReader;
 using NUnit.Framework;
 using System;
 
-namespace RfidReaderTest
+namespace ChargerLocker.RfidReader.Test
 {
     [TestFixture]
     public class TestRfidReader
