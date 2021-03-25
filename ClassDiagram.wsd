@@ -1,4 +1,91 @@
 @startuml
 
+actor       User   
+participant Display 
+participant Door
+participant RFIDReader
+participant StationControl
+participant ChargeControl
+actor LogFile
+
+User -> Door : opens 
+
+Door -> StationControl : << Door Open >>
+activate StationControl
+
+StationControl -> Display : Show: "Connect"
+deactivate StationControl
+
+User -> ChargeControl : connects phone
+
+User -> Door : closes
+
+
+Door -> StationControl : << Door Closed >>
+activate StationControl
+
+StationControl -> Display : Show: "Scan RFID"
+deactivate StationControl
+
+   loop If Phone Not Connected
+
+    User -> RFIDReader : scans rfid
+
+    RFIDReader -> StationControl : << RFID Detected >>
+    activate StationControl
+
+    StationControl -> ChargeControl : << Is Connected >>
+    activate ChargeControl
+
+    ChargeControl -> StationControl : << false >>
+
+    StationControl -> Display : Show "Phone not connected"
+
+    end
+
+    ChargeControl -> StationControl : << true >>
+    deactivate ChargeControl
+
+    StationControl -> ChargeControl : << Start Charge >>
+    
+    StationControl -> Door : << Lock Door >>
+
+    StationControl -> LogFile : << Log Door ID >>
+
+    StationControl -> Display : Show "Locker occupied"
+    deactivate StationControl
+
+  loop If RFID Wrong    
+
+    User -> RFIDReader : scans rfid
+
+    RFIDReader -> StationControl : << RFID Detected >>
+    activate StationControl
+
+    
+    StationControl -> StationControl : << Check ID >>
+    activate StationControl
+    
+
+    deactivate StationControl
+    StationControl -> StationControl : << false >>
+
+    StationControl -> Display : Show "RFID Error"
+   end
+
+    StationControl -> StationControl : true
+    activate StationControl
+    
+
+    deactivate StationControl
+    StationControl -> ChargeControl : << Stop Charge >>
+
+    StationControl -> Door : << Unlock Door >>
+
+    StationControl -> LogFile : << Log Door ID
+
+    StationControl -> Display : Show "Remove phone"
+
+    deactivate StationControl
 @enduml
 
