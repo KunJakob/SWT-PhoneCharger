@@ -16,7 +16,7 @@ namespace Ladeskab.RfidReader
 
         public event EventHandler<RfidReadEventArgs> ReadIdEvent;
 
-        public void OnRfidRead(RfidReadEventArgs e)
+        protected virtual void OnRfidRead(RfidReadEventArgs e)
         {
             ReadIdEvent?.Invoke(this, e);
         }
