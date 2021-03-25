@@ -8,12 +8,12 @@ namespace DoorSimulator.Test
     [TestFixture]
     public class TestDoorSimulator
     {
-        private DoorClassSimulator _uut;
+        private Door _uut;
 
         [SetUp]
         public void Setup()
         {
-            _uut = new DoorClassSimulator();
+            _uut = new Door();
             var _rfidsub = Substitute.For<IRfidReader>();
 
         }

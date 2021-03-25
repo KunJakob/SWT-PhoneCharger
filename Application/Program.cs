@@ -59,7 +59,7 @@ class Program
     static void ConfigureServices(ServiceCollection services)
     {
         services.AddSingleton<StationControl>();
-        services.AddSingleton<IDoor, DoorClassSimulator>();
+        services.AddSingleton<IDoor, Door>();
         services.AddSingleton<IChargeControl, ChargeControl>();
         services.AddSingleton<IRfidReader, RfidReaderSimulator>();
         services.AddSingleton<IUsbCharger, UsbChargerSimulator>();

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Ladeskab.Events;
+using System;
 using System.Timers;
 
 namespace Ladeskab.UsbCharger
