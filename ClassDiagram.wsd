@@ -1,91 +1,105 @@
 @startuml
 
-actor       User   
-participant Display 
-participant Door
-participant RFIDReader
-participant StationControl
-participant ChargeControl
-actor LogFile
+class StationControl
+{
+    - _state : LadeskabState 
+    - _charger : IChargeControl
+    - _oldId : int 
+    - _door : IDoor 
+    - logFile : string
 
-User -> Door : opens 
+    + StationControl(IDoor, IChargeControl) 
 
-Door -> StationControl : << Door Open >>
-activate StationControl
-
-StationControl -> Display : Show: "Connect"
-deactivate StationControl
-
-User -> ChargeControl : connects phone
-
-User -> Door : closes
+    - RfidDetected(int) : void
+    + OnDoorClose() : void
+    + OnDoorOpen() : void
+    + OnRfidReadEvent(int) : void
+}
 
 
-Door -> StationControl : << Door Closed >>
-activate StationControl
+/' Door '/
 
-StationControl -> Display : Show: "Scan RFID"
-deactivate StationControl
+interface IDoor
+{
+    + IsDoorUnlocked : bool
+    + LockDoor() : void
+    + UnlockDoor() : void
+}
 
-   loop If Phone Not Connected
+class DoorClassSimulator 
+{
+    + IsDoorOpen : bool
+    + IsDoorUnlocked : bool 
+    + DoorClassSimulator()
+}
 
-    User -> RFIDReader : scans rfid
 
-    RFIDReader -> StationControl : << RFID Detected >>
-    activate StationControl
+IDoor <-- DoorClassSimulator
+StationControl <-- IDoor
 
-    StationControl -> ChargeControl : << Is Connected >>
-    activate ChargeControl
+/' RFID READER '/
 
-    ChargeControl -> StationControl : << false >>
+interface IRfidReader{
 
-    StationControl -> Display : Show "Phone not connected"
+    + _SC : StationControl 
+    + OnRfidRead(int) : void   
+}
 
-    end
+class RfidReader
+{
+    + _SC : StationControl 
+    + _id : int
 
-    ChargeControl -> StationControl : << true >>
-    deactivate ChargeControl
+    + OnRfidRead(int) : void    
+}
 
-    StationControl -> ChargeControl : << Start Charge >>
-    
-    StationControl -> Door : << Lock Door >>
+IRfidReader <-- StationControl
+IRfidReader <-- RfidReader
 
-    StationControl -> LogFile : << Log Door ID >>
+/' USB Charger '/
+class UsbChargerSimulator
+{
+    - MaxCurrent : const double
+    - FullyChargedCurrent : const double
+    - OverloadCurrent : const double
+    - ChargeTimeMinutes : const int
+    - CurrentTickInterval : const int
 
-    StationControl -> Display : Show "Locker occupied"
-    deactivate StationControl
+    + CurrentValueEvent : Event
+    + CurrentValue : double
+    + Connected : bool
 
-  loop If RFID Wrong    
+    - _overload : bool
+    - _charging : bool
+    - _timer : timer
+    - _ticksSinceStart : int
 
-    User -> RFIDReader : scans rfid
+    + SimulateConnected(Bool) : void
+    + SimulateOverload(Bool) : void
+    + StartChange() : void 
+    + StopCharge() : void  
+    - TimerOnElapsed(Object, ElapsedEventArgs): void
+    - OnNewCurrent() : void
+}
 
-    RFIDReader -> StationControl : << RFID Detected >>
-    activate StationControl
+interface IUsbCharger
+{
+    +CurrentValue: Double
+    +Connected: bool
+    +StartCharge(): void
+    +StopCharge(): void
+}
+interface IChargeControl
+{
+    +Connected: bool
+    +StartCharge(): void
+    +StopCharge(): void
+}
 
-    
-    StationControl -> StationControl : << Check ID >>
-    activate StationControl
-    
 
-    deactivate StationControl
-    StationControl -> StationControl : << false >>
+IUsbCharger <-- UsbChargerSimulator
+IChargeControl <-- IUsbCharger
+StationControl <-- IChargeControl
 
-    StationControl -> Display : Show "RFID Error"
-   end
-
-    StationControl -> StationControl : true
-    activate StationControl
-    
-
-    deactivate StationControl
-    StationControl -> ChargeControl : << Stop Charge >>
-
-    StationControl -> Door : << Unlock Door >>
-
-    StationControl -> LogFile : << Log Door ID
-
-    StationControl -> Display : Show "Remove phone"
-
-    deactivate StationControl
 @enduml
 
