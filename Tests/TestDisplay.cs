@@ -50,7 +50,7 @@ namespace ChargerLocker.Display.Text
         }
 
         [Test]
-        public void Notify_DuplicateCall_ReturnsNoPrint()
+        public void NotifyCharge_DuplicateCall_ReturnsNoPrint()
         {
 
             _uut.NotifyCharge("test");
@@ -58,6 +58,21 @@ namespace ChargerLocker.Display.Text
             Console.SetOut(output);
 
             _uut.NotifyCharge("test");
+
+            var expectedOutput = "";
+
+            Assert.That(output.ToString(), Is.EqualTo(expectedOutput));
+        }
+
+        [Test]
+        public void NotifyStation_DuplicateCall_ReturnsNoPrint()
+        {
+
+            _uut.NotifyStation("test");
+            var output = new StringWriter();
+            Console.SetOut(output);
+
+            _uut.NotifyStation("test");
 
             var expectedOutput = "";
 
