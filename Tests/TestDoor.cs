@@ -3,6 +3,7 @@ using Ladeskab.RfidReader;
 using Ladeskab.Events;
 using NSubstitute;
 using NUnit.Framework;
+using System;
 
 namespace DoorSimulator.Test
 {
@@ -43,14 +44,16 @@ namespace DoorSimulator.Test
             bool IsOpen = false;
             object _sender = null;
 
-            void MockHandler(object sender, DoorChangeEventArgs e)
+            void MockHandler(object sender, DoorOpenEventArgs e)
             {
                 WasRaised = true;
                 IsOpen = e.IsOpen;
                 _sender = sender;
-            }
+            } /*
+               * See my comment on the next MockHandler
+               */
 
-            _uut.DoorChangeEvent += MockHandler;
+            _uut.DoorChangeEvent += new EventHandler<DoorOpenEventArgs>(MockHandler);
             _uut.OpenDoor();
 
             Assert.That(WasRaised, Is.EqualTo(true));
@@ -67,14 +70,15 @@ namespace DoorSimulator.Test
 
             _uut.LockDoor();
 
-            void MockHandler(object sender, DoorChangeEventArgs e)
+            void MockHandler(object sender, DoorOpenEventArgs e)
             {
                 WasRaised = true;
                 IsOpen = e.IsOpen;
                 _sender = sender;
-            }
+            } /* This is a mock for the test, it is supposed to fail, so the coverage report on jenkins gives some warnings.
+               * This is supposed to happen. */
 
-            _uut.DoorChangeEvent += MockHandler;
+            _uut.DoorChangeEvent += new EventHandler<DoorOpenEventArgs>(MockHandler);
             _uut.OpenDoor();
 
             Assert.That(WasRaised, Is.EqualTo(false));
@@ -91,14 +95,14 @@ namespace DoorSimulator.Test
 
             _uut.UnlockDoor();
 
-            void MockHandler(object sender, DoorChangeEventArgs e)
+            void MockHandler(object sender, DoorOpenEventArgs e)
             {
                 WasRaised = true;
                 IsOpen = e.IsOpen;
                 _sender = sender;
             }
 
-            _uut.DoorChangeEvent += MockHandler;
+            _uut.DoorChangeEvent += new EventHandler<DoorOpenEventArgs>(MockHandler);
             _uut.CloseDoor();
 
             Assert.That(WasRaised, Is.EqualTo(true));
@@ -115,14 +119,14 @@ namespace DoorSimulator.Test
 
             _uut.LockDoor();
 
-            void MockHandler(object sender, DoorChangeEventArgs e)
+            void MockHandler(object sender, DoorOpenEventArgs e)
             {
                 WasRaised = true;
                 IsOpen = e.IsOpen;
                 _sender = sender;
             }
 
-            _uut.DoorChangeEvent += MockHandler;
+            _uut.DoorChangeEvent += new EventHandler<DoorOpenEventArgs>(MockHandler);
             _uut.CloseDoor();
 
             Assert.That(WasRaised, Is.EqualTo(false));

@@ -21,9 +21,9 @@ namespace Ladeskab.Door
             _lockState = LockState.UNLOCKED;
         }
 
-        public event EventHandler<DoorChangeEventArgs> DoorChangeEvent;
+        public event EventHandler<DoorOpenEventArgs> DoorChangeEvent;
 
-        protected virtual void OnDoorChange(DoorChangeEventArgs e)
+        protected virtual void OnDoorChange(DoorOpenEventArgs e)
         {
             DoorChangeEvent?.Invoke(this, e);
         }
@@ -41,7 +41,7 @@ namespace Ladeskab.Door
         {
             if (_lockState == LockState.UNLOCKED)
             {
-                OnDoorChange(new DoorChangeEventArgs { IsOpen = true });
+                OnDoorChange(new DoorOpenEventArgs { IsOpen = true });
                 return true;
             }
             else
@@ -55,7 +55,7 @@ namespace Ladeskab.Door
             //Probably can't happen, but added for insurance
             if (_lockState == LockState.UNLOCKED)
             {
-                OnDoorChange(new DoorChangeEventArgs { IsOpen = false });
+                OnDoorChange(new DoorOpenEventArgs { IsOpen = false });
                 return true;
             }
             else

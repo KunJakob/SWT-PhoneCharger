@@ -1,6 +1,7 @@
 ﻿using Ladeskab.Events;
 using Ladeskab.RfidReader;
 using NUnit.Framework;
+using System;
 
 namespace RfidReaderTest
 {
@@ -33,7 +34,7 @@ namespace RfidReaderTest
                 _sender = sender;
             }
 
-            _uut.ReadIdEvent += MockHandler;
+            _uut.ReadIdEvent += new EventHandler<RfidReadEventArgs>(MockHandler);
             _uut.Read(5);
 
             Assert.That(WasRaised, Is.EqualTo(true));
