@@ -7,6 +7,7 @@ using System;
 using Ladeskab.UsbCharger;
 using Ladeskab.StationControl;
 using Ladeskab.Logger;
+using Ladeskab.Display;
 
 class Program
 {
@@ -24,12 +25,13 @@ class Program
         //get instances
         IDoor door = ServiceProvider.GetService<IDoor>();
         IRfidReader rfidReader = ServiceProvider.GetService<IRfidReader>();
+        IDisplay Display = ServiceProvider.GetService<IDisplay>();
 
         //local vars
         bool finish = false;
         do
         {
-            Console.WriteLine("Indtast E, O, C, R: ");
+            Display.notifyStation("Indtast E, O, C, R: ");
             string input = Console.ReadLine();
             if (string.IsNullOrEmpty(input)) continue;
 
@@ -48,7 +50,7 @@ class Program
                     break;
 
                 case 'R':
-                    Console.WriteLine("Indtast RFID id: ");
+                    Display.notifyStation("Indtast RFID id: ");
                     string idString = System.Console.ReadLine();
 
                     int id = Convert.ToInt32(idString);
@@ -71,5 +73,6 @@ class Program
         services.AddSingleton<IUsbCharger, UsbChargerSimulator>();
         string LogPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)+"/";
         services.AddSingleton<ILogger>(new Logger(LogPath, "LogFile.txt"));
+        services.AddSingleton<IDisplay,Display>();
     }
 }

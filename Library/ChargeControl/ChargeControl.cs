@@ -5,7 +5,7 @@ namespace Ladeskab.ChargeControl
 {
     public class ChargeControl : IChargeControl
     {
-        public bool Connected { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public bool Connected { get; set; }
 
         public void StartCharge()
         {
