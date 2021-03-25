@@ -23,19 +23,19 @@ namespace Ladeskab.ChargeControl
             double Current = e.Current;
             if (Current == 0)
             {
-                _display.notifyCharge("");
+                _display.NotifyCharge("");
             }
             else if (0 < Current && Current <= 5)
             {
-                _display.notifyCharge("Phone fully charged. It can be safely removed.");
+                _display.NotifyCharge("Phone fully charged. It can be safely removed.");
             }
             else if (5 < Current && Current <= 500)
             {
-                _display.notifyCharge("Phone is charging.");
+                _display.NotifyCharge("Phone is charging.");
             }
             else if (Current > 500)
             {
-                _display.notifyCharge("ERROR: Potential short circuit. Disconnect phone immediately.");
+                _display.NotifyCharge("ERROR: Potential short circuit. Disconnect phone immediately.");
             }
 
         }

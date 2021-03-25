@@ -25,7 +25,7 @@ namespace Ladeskab.Display.Text
             var output = new StringWriter();
             Console.SetOut(output);
 
-            _uut.notifyStation(testVar);
+            _uut.NotifyStation(testVar);
 
             var expectedOutput = "######### " +"Station - " + DateTime.Now.ToString() + " #########" +
                 "\r\n"+ testVar +"\r\n";
@@ -41,7 +41,7 @@ namespace Ladeskab.Display.Text
             var output = new StringWriter();
             Console.SetOut(output);
 
-            _uut.notifyCharge(testVar);
+            _uut.NotifyCharge(testVar);
 
             var expectedOutput = "######### "+ "Charge - " + DateTime.Now.ToString() + " #########" +
                 "\r\n"+ testVar + "\r\n";

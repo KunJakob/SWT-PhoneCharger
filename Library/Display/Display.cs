@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Ladeskab.Display
 {
     public class Display : IDisplay
     {
-        public void notifyCharge(string msg)
+        public void NotifyCharge(string msg)
         {
             string notifyMsg = "######### " +"Charge - "+ DateTime.Now.ToString() + " #########";
             // When calling CursorTop and WindowWidth on console, when there is no console being tested, will cause a handle error.
@@ -30,7 +31,7 @@ namespace Ladeskab.Display
                 Console.WriteLine(msg);
             }
         }
-        public void notifyStation(string msg)
+        public void NotifyStation(string msg)
         {
             string notifyMsg = "######### " + "Station - " + DateTime.Now.ToString() + " #########";
 
@@ -56,6 +57,12 @@ namespace Ladeskab.Display
             {
                 Console.WriteLine(msg);
             }
+        }
+        public string ReadInput()
+        {
+            Console.SetCursorPosition((Console.WindowWidth) / 2, Console.CursorTop);
+            
+            return Console.ReadLine();
         }
     }
 }

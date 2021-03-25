@@ -30,8 +30,8 @@ class Program
         bool finish = false;
         do
         {
-            Display.notifyStation("Indtast E, O, C, R: ");
-            string input = Console.ReadLine();
+            Display.NotifyStation("Indtast E, O, C, R: ");
+            string input = Display.ReadInput();
             if (string.IsNullOrEmpty(input)) continue;
 
             switch (input[0])
@@ -49,8 +49,8 @@ class Program
                     break;
 
                 case 'R':
-                    Display.notifyStation("Indtast RFID id: ");
-                    string idString = System.Console.ReadLine();
+                    Display.NotifyStation("Indtast RFID id: ");
+                    string idString = Display.ReadInput();
 
                     int id = Convert.ToInt32(idString);
                     rfidReader.Read(id);
