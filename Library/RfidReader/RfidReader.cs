@@ -10,9 +10,6 @@ namespace Ladeskab.RfidReader
 {
     public class RfidReader : IRfidReader
     {
-        public RfidReader()
-        {
-        }
 
         public event EventHandler<RfidReadEventArgs> ReadIdEvent;
 
@@ -23,7 +20,7 @@ namespace Ladeskab.RfidReader
 
         public void Read(int id)
         {
-            throw new NotImplementedException();
+            OnRfidRead(new RfidReadEventArgs { Id = id });
         }
     }
 }

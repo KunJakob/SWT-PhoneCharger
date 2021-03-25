@@ -4,7 +4,7 @@ namespace Ladeskab.Events
 {
     public class RfidReadEventArgs : EventArgs
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
     }
     public class DoorChangeEventArgs : EventArgs
     {
