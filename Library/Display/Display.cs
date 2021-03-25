@@ -5,8 +5,17 @@ namespace Ladeskab.Display
 {
     public class Display : IDisplay
     {
+
+        private string _PreviousCallStringCharge { get; set; }
+        private string _PreviousCallStringStation { get; set; }
+
         public void NotifyCharge(string msg)
         {
+            if (msg == _PreviousCallStringCharge)
+            {
+                return;
+            }
+            _PreviousCallStringCharge = msg;
             string notifyMsg = "######### " +"Charge - "+ DateTime.Now.ToString() + " #########";
             // When calling CursorTop and WindowWidth on console, when there is no console being tested, will cause a handle error.
             // To ensure code will run through test and check the write and read, we have implemented try/catch/finally. 
@@ -33,6 +42,11 @@ namespace Ladeskab.Display
         }
         public void NotifyStation(string msg)
         {
+            if (msg == _PreviousCallStringStation)
+            {
+                return;
+            }
+            _PreviousCallStringStation = msg;
             string notifyMsg = "######### " + "Station - " + DateTime.Now.ToString() + " #########";
 
             // When calling CursorTop and WindowWidth on console, when there is no console being tested, will cause a handle error.
@@ -60,8 +74,11 @@ namespace Ladeskab.Display
         }
         public string ReadInput()
         {
-            Console.SetCursorPosition((Console.WindowWidth) / 2, Console.CursorTop);
-            
+            try
+            {
+                Console.SetCursorPosition((Console.WindowWidth) / 2, Console.CursorTop);
+            }
+            catch { }
             return Console.ReadLine();
         }
     }
