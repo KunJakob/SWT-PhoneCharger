@@ -6,8 +6,6 @@ namespace ChargerLocker.Door
     public class Door : IDoor
     {
 
-
-
         private enum LockState
         {
             LOCKED,
