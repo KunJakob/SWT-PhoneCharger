@@ -1,11 +1,8 @@
-﻿using ChargerLocker.Door;
-using ChargerLocker.RfidReader;
-using ChargerLocker.Events;
-using NSubstitute;
+﻿using ChargerLocker.Events;
 using NUnit.Framework;
 using System;
 
-namespace DoorSimulator.Test
+namespace ChargerLocker.Door.Test
 {
     [TestFixture]
     public class TestDoor

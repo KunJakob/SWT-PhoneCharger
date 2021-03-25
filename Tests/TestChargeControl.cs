@@ -1,11 +1,10 @@
 ﻿using NUnit.Framework;
-using ChargerLocker.ChargeControl;
 using ChargerLocker.Events;
 using ChargerLocker.UsbCharger;
 using ChargerLocker.Display;
 using NSubstitute;
 
-namespace Tests
+namespace ChargerLocker.ChargeControl.Test
 {
     [TestFixture]
     class TestChargeControl

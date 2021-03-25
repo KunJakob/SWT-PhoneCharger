@@ -1,11 +1,11 @@
 ﻿using ChargerLocker.ChargeControl;
+using ChargerLocker.Display;
 using ChargerLocker.Door;
 using ChargerLocker.Events;
-using ChargerLocker.RfidReader;
 using ChargerLocker.Logger;
-using ChargerLocker.Display;
+using ChargerLocker.RfidReader;
 using System;
-using System.IO;
+
 namespace ChargerLocker.StationControl
 {
     public class StationControl

@@ -1,8 +1,8 @@
-﻿
-using System;
-using ChargerLocker.UsbCharger;
+﻿using ChargerLocker.Display;
 using ChargerLocker.Events;
-using ChargerLocker.Display;
+using ChargerLocker.UsbCharger;
+using System;
+
 namespace ChargerLocker.ChargeControl
 {
     public class ChargeControl : IChargeControl

@@ -1,8 +1,7 @@
-﻿using ChargerLocker.UsbCharger;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using System.Threading;
 
-namespace UsbChargerSimulatorNS.Test
+namespace ChargerLocker.UsbCharger.Test
 {
     [TestFixture]
     public class TestUsbChargerSimulator

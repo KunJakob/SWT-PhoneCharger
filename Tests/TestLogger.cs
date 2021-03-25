@@ -1,9 +1,8 @@
-﻿using ChargerLocker.Logger;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using System;
 using System.IO;
 
-namespace LoggerTest
+namespace ChargerLocker.Logger.Test
 {
     [TestFixture]
     public class TestLogger

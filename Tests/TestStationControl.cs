@@ -1,20 +1,13 @@
-﻿using ChargerLocker.StationControl;
-using ChargerLocker.Door;
+﻿using ChargerLocker.ChargeControl;
 using ChargerLocker.Display;
+using ChargerLocker.Door;
 using ChargerLocker.Events;
 using ChargerLocker.Logger;
 using ChargerLocker.RfidReader;
-using ChargerLocker.Events;
-using ChargerLocker.ChargeControl;
-using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using NSubstitute;
+using NUnit.Framework;
 
-namespace Tests
+namespace ChargerLocker.StationControl.Test
 {
     [TestFixture]
     class TestStationControl
