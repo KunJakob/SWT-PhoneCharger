@@ -32,6 +32,7 @@ namespace LoggerTest
             
             _uut.WriteToLog(testText);
             string[] lines = File.ReadAllLines(LogPath + "TestLogFile.txt");
+            //Using contains as matching the timestamp creates dependency on the test running on a fast computer.
             Assert.That(lines[0].Contains(testText), Is.EqualTo(true));
 
         }
