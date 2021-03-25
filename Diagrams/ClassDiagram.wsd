@@ -44,13 +44,13 @@ StationControl --> IDoor
 
 interface IRfidReader{
 
-    + _SC : StationControl 
-    + OnRfidRead(int) : void   
+    + Read(int) : void  
+    + ReadIdEvent() : Event 
 }
 
 class RfidReader
 {
-    + _id : int  
+    # // OnRfidRead//() : void  
 }
 
 IRfidReader <-- StationControl
