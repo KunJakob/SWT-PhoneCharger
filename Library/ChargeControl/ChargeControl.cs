@@ -14,7 +14,7 @@ namespace Ladeskab.ChargeControl
         public ChargeControl(IUsbCharger Charger, IDisplay Display)
         {
             _charger = Charger;
-            _charger.CurrentValueEvent += CurrentChangeHandler;
+            _charger.CurrentValueEvent += new EventHandler<CurrentEventArgs>(CurrentChangeHandler);
             _display = Display;
         }
 
