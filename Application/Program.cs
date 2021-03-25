@@ -6,6 +6,7 @@ using Ladeskab.RfidReader;
 using System;
 using Ladeskab.UsbCharger;
 using Ladeskab.StationControl;
+using Ladeskab.Log;
 
 class Program
 {
@@ -68,5 +69,7 @@ class Program
         services.AddSingleton<IChargeControl, ChargeControl>();
         services.AddSingleton<IRfidReader, RfidReader>();
         services.AddSingleton<IUsbCharger, UsbChargerSimulator>();
+        string LogPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+        services.AddSingleton<ILog>(new Log(LogPath, "LogFile.txt"));
     }
 }
