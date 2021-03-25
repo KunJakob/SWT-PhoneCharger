@@ -2,7 +2,7 @@
 using System;
 using System.IO;
 
-namespace Ladeskab.Display.Text
+namespace ChargerLocker.Display.Text
 {
     [TestFixture]
     public class DisplayTest

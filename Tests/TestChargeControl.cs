@@ -1,8 +1,8 @@
 ﻿using NUnit.Framework;
-using Ladeskab.ChargeControl;
-using Ladeskab.Events;
-using Ladeskab.UsbCharger;
-using Ladeskab.Display;
+using ChargerLocker.ChargeControl;
+using ChargerLocker.Events;
+using ChargerLocker.UsbCharger;
+using ChargerLocker.Display;
 using NSubstitute;
 
 namespace Tests

@@ -1,7 +1,7 @@
-﻿using Ladeskab.Events;
+﻿using ChargerLocker.Events;
 using System;
 
-namespace Ladeskab.RfidReader
+namespace ChargerLocker.RfidReader
 {
     public class RfidReader : IRfidReader
     {

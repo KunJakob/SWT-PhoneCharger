@@ -1,7 +1,7 @@
-﻿using Ladeskab.Events;
+﻿using ChargerLocker.Events;
 using System;
 
-namespace Ladeskab.Door
+namespace ChargerLocker.Door
 {
     public interface IDoor
     {

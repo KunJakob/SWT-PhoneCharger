@@ -1,10 +1,10 @@
-﻿using Ladeskab.ChargeControl;
-using Ladeskab.Display;
-using Ladeskab.Door;
-using Ladeskab.Logger;
-using Ladeskab.RfidReader;
-using Ladeskab.StationControl;
-using Ladeskab.UsbCharger;
+﻿using ChargerLocker.ChargeControl;
+using ChargerLocker.Display;
+using ChargerLocker.Door;
+using ChargerLocker.Logger;
+using ChargerLocker.RfidReader;
+using ChargerLocker.StationControl;
+using ChargerLocker.UsbCharger;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 

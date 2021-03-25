@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace Ladeskab.Logger
+namespace ChargerLocker.Logger
 {
     public class Logger : ILogger
     {

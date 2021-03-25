@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Ladeskab.Events
+namespace ChargerLocker.Events
 {
     public class RfidReadEventArgs : EventArgs
     {

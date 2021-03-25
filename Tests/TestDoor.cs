@@ -1,6 +1,6 @@
-﻿using Ladeskab.Door;
-using Ladeskab.RfidReader;
-using Ladeskab.Events;
+﻿using ChargerLocker.Door;
+using ChargerLocker.RfidReader;
+using ChargerLocker.Events;
 using NSubstitute;
 using NUnit.Framework;
 using System;

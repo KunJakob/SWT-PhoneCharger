@@ -1,8 +1,8 @@
-﻿using Ladeskab.Events;
+﻿using ChargerLocker.Events;
 using System;
 using System.Timers;
 
-namespace Ladeskab.UsbCharger
+namespace ChargerLocker.UsbCharger
 {
     public class UsbChargerSimulator : IUsbCharger
     {

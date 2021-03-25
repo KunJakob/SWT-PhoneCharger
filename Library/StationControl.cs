@@ -1,12 +1,12 @@
-﻿using Ladeskab.ChargeControl;
-using Ladeskab.Door;
-using Ladeskab.Events;
-using Ladeskab.RfidReader;
-using Ladeskab.Logger;
-using Ladeskab.Display;
+﻿using ChargerLocker.ChargeControl;
+using ChargerLocker.Door;
+using ChargerLocker.Events;
+using ChargerLocker.RfidReader;
+using ChargerLocker.Logger;
+using ChargerLocker.Display;
 using System;
 using System.IO;
-namespace Ladeskab.StationControl
+namespace ChargerLocker.StationControl
 {
     public class StationControl
     {
@@ -41,19 +41,27 @@ namespace Ladeskab.StationControl
             _rfidReader.ReadIdEvent += new EventHandler<RfidReadEventArgs>(HandleRfidRead);
         }
 
+
+
         protected virtual void HandleDoorChange(object sender, DoorOpenEventArgs e)
         {
             switch (_state)
             {
                 case LadeskabState.Available:
                     if (e.IsOpen)
+                    {
                         _state = LadeskabState.DoorOpen;
-                    _display.NotifyStation("Connect your phone");
+                        _display.NotifyStation("Connect your phone");
+                    }
+
                     break;
                 case LadeskabState.DoorOpen:
                     if (!e.IsOpen)
+                    {
                         _state = LadeskabState.Available;
-                    _display.NotifyStation("Scan RFID");
+                        _display.NotifyStation("Scan RFID");
+                    }
+
                     break;
                 case LadeskabState.Locked:
                     //ignore

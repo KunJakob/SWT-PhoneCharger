@@ -1,4 +1,4 @@
-﻿using Ladeskab.UsbCharger;
+﻿using ChargerLocker.UsbCharger;
 using NUnit.Framework;
 using System.Threading;
 

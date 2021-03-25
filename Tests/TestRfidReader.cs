@@ -1,5 +1,5 @@
-﻿using Ladeskab.Events;
-using Ladeskab.RfidReader;
+﻿using ChargerLocker.Events;
+using ChargerLocker.RfidReader;
 using NUnit.Framework;
 using System;
 

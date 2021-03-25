@@ -1,9 +1,9 @@
 ﻿
 using System;
-using Ladeskab.UsbCharger;
-using Ladeskab.Events;
-using Ladeskab.Display;
-namespace Ladeskab.ChargeControl
+using ChargerLocker.UsbCharger;
+using ChargerLocker.Events;
+using ChargerLocker.Display;
+namespace ChargerLocker.ChargeControl
 {
     public class ChargeControl : IChargeControl
     {

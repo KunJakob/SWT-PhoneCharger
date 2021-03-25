@@ -1,4 +1,4 @@
-﻿using Ladeskab.Logger;
+﻿using ChargerLocker.Logger;
 using NUnit.Framework;
 using System;
 using System.IO;

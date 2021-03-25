@@ -1,4 +1,4 @@
-﻿namespace Ladeskab.Display
+﻿namespace ChargerLocker.Display
 {
     public interface IDisplay
     {

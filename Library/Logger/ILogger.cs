@@ -1,4 +1,4 @@
-﻿namespace Ladeskab.Logger
+﻿namespace ChargerLocker.Logger
 {
     public interface ILogger
     {

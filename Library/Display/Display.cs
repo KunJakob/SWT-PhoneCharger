@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Ladeskab.Display
+namespace ChargerLocker.Display
 {
     public class Display : IDisplay
     {
