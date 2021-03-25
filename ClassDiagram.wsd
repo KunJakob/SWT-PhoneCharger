@@ -1,0 +1,105 @@
+@startuml
+
+class StationControl
+{
+    - _state : LadeskabState 
+    - _charger : IChargeControl
+    - _oldId : int 
+    - _door : IDoor 
+    - logFile : string
+
+    + StationControl(IDoor, IChargeControl) 
+
+    - RfidDetected(int) : void
+    + OnDoorClose() : void
+    + OnDoorOpen() : void
+    + OnRfidReadEvent(int) : void
+}
+
+
+/' Door '/
+
+interface IDoor
+{
+    + IsDoorUnlocked : bool
+    + LockDoor() : void
+    + UnlockDoor() : void
+}
+
+class DoorClassSimulator 
+{
+    + IsDoorOpen : bool
+    + IsDoorUnlocked : bool 
+    + DoorClassSimulator()
+}
+
+
+IDoor <-- DoorClassSimulator
+StationControl <-- IDoor
+
+/' RFID READER '/
+
+interface IRfidReader{
+
+    + _SC : StationControl 
+    + OnRfidRead(int) : void   
+}
+
+class RfidReader
+{
+    + _SC : StationControl 
+    + _id : int
+
+    + OnRfidRead(int) : void    
+}
+
+IRfidReader <-- StationControl
+IRfidReader <-- RfidReader
+
+/' USB Charger '/
+class UsbChargerSimulator
+{
+    - MaxCurrent : const double
+    - FullyChargedCurrent : const double
+    - OverloadCurrent : const double
+    - ChargeTimeMinutes : const int
+    - CurrentTickInterval : const int
+
+    + CurrentValueEvent : Event
+    + CurrentValue : double
+    + Connected : bool
+
+    - _overload : bool
+    - _charging : bool
+    - _timer : timer
+    - _ticksSinceStart : int
+
+    + SimulateConnected(Bool) : void
+    + SimulateOverload(Bool) : void
+    + StartChange() : void 
+    + StopCharge() : void  
+    - TimerOnElapsed(Object, ElapsedEventArgs): void
+    - OnNewCurrent() : void
+}
+
+interface IUsbCharger
+{
+    +CurrentValue: Double
+    +Connected: bool
+    +StartCharge(): void
+    +StopCharge(): void
+}
+interface IChargeControl
+{
+    +Connected: bool
+    +StartCharge(): void
+    +StopCharge(): void
+}
+
+
+IUsbCharger <-- UsbChargerSimulator
+IChargeControl <-- IUsbCharger
+StationControl <-- IChargeControl
+
+@enduml
+
