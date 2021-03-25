@@ -70,6 +70,6 @@ class Program
         services.AddSingleton<IRfidReader, RfidReader>();
         services.AddSingleton<IUsbCharger, UsbChargerSimulator>();
         string LogPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-        services.AddSingleton<ILog>(new Log(LogPath, "LogFile.txt"));
+        services.AddSingleton<ILogger>(new Logger(LogPath, "LogFile.txt"));
     }
 }
