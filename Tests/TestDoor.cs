@@ -7,7 +7,7 @@ using NUnit.Framework;
 namespace DoorSimulator.Test
 {
     [TestFixture]
-    public class TestDoorSimulator
+    public class TestDoor
     {
         private Door _uut;
 
@@ -15,7 +15,6 @@ namespace DoorSimulator.Test
         public void Setup()
         {
             _uut = new Door();
-            var _rfidsub = Substitute.For<IRfidReader>();
 
         }
 
@@ -39,17 +38,21 @@ namespace DoorSimulator.Test
         public void OpenDoor_Raises_Event_If_Unlocked()
         {
             _uut.UnlockDoor();
+
             bool WasRaised = false;
             bool IsOpen = false;
             object _sender = null;
+
             void MockHandler(object sender, DoorChangeEventArgs e)
             {
                 WasRaised = true;
                 IsOpen = e.IsOpen;
                 _sender = sender;
             }
+
             _uut.DoorChangeEvent += MockHandler;
             _uut.OpenDoor();
+
             Assert.That(WasRaised, Is.EqualTo(true));
             Assert.That(IsOpen, Is.EqualTo(true));
             Assert.That(_sender, Is.EqualTo(_uut));
@@ -58,18 +61,22 @@ namespace DoorSimulator.Test
         [Test]
         public void OpenDoor_Does_Not_Raise_Event_If_Locked()
         {
-            _uut.LockDoor();
             bool WasRaised = false;
             bool IsOpen = false;
             object _sender = null;
+
+            _uut.LockDoor();
+
             void MockHandler(object sender, DoorChangeEventArgs e)
             {
                 WasRaised = true;
                 IsOpen = e.IsOpen;
                 _sender = sender;
             }
+
             _uut.DoorChangeEvent += MockHandler;
             _uut.OpenDoor();
+
             Assert.That(WasRaised, Is.EqualTo(false));
             Assert.That(IsOpen, Is.EqualTo(false));
             Assert.That(_sender, Is.EqualTo(null));
@@ -78,18 +85,22 @@ namespace DoorSimulator.Test
         [Test]
         public void CloseDoor_Raises_Event_If_Unlocked()
         {
-            _uut.UnlockDoor();
             bool WasRaised = false;
             bool IsOpen = true;
             object _sender = null;
+
+            _uut.UnlockDoor();
+
             void MockHandler(object sender, DoorChangeEventArgs e)
             {
                 WasRaised = true;
                 IsOpen = e.IsOpen;
                 _sender = sender;
             }
+
             _uut.DoorChangeEvent += MockHandler;
             _uut.CloseDoor();
+
             Assert.That(WasRaised, Is.EqualTo(true));
             Assert.That(IsOpen, Is.EqualTo(false));
             Assert.That(_sender, Is.EqualTo(_uut));
@@ -98,18 +109,22 @@ namespace DoorSimulator.Test
         [Test]
         public void CloseDoor_Does_Not_Raise_Event_If_Locked()
         {
-            _uut.LockDoor();
             bool WasRaised = false;
             bool IsOpen = true;
             object _sender = null;
+
+            _uut.LockDoor();
+
             void MockHandler(object sender, DoorChangeEventArgs e)
             {
                 WasRaised = true;
                 IsOpen = e.IsOpen;
                 _sender = sender;
             }
+
             _uut.DoorChangeEvent += MockHandler;
             _uut.CloseDoor();
+
             Assert.That(WasRaised, Is.EqualTo(false));
             Assert.That(IsOpen, Is.EqualTo(true));
             Assert.That(_sender, Is.EqualTo(null));
