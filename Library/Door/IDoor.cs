@@ -5,10 +5,11 @@ namespace Ladeskab.Door
 {
     public interface IDoor
     {
-        public event EventHandler<DoorChangeEventArgs> DoorChangeEvent;
+        public event EventHandler<DoorOpenEventArgs> DoorChangeEvent;
+        public event EventHandler<DoorLockEventArgs> DoorLockEvent;
         public void LockDoor();
         public void UnlockDoor();
-        public bool OpenDoor();
-        public bool CloseDoor();
+        public void OpenDoor();
+        public void CloseDoor();
     }
 }

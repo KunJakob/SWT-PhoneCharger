@@ -8,61 +8,45 @@ namespace Ladeskab.Door
 
 
 
-        private enum LockState
-        {
-            LOCKED,
-            UNLOCKED
-        }
 
-        private LockState _lockState;
 
         public Door()
         {
-            _lockState = LockState.UNLOCKED;
         }
 
-        public event EventHandler<DoorChangeEventArgs> DoorChangeEvent;
+        public event EventHandler<DoorOpenEventArgs> DoorChangeEvent;
+        public event EventHandler<DoorLockEventArgs> DoorLockEvent;
 
-        protected virtual void OnDoorChange(DoorChangeEventArgs e)
+        protected virtual void OnDoorChange(DoorOpenEventArgs e)
         {
             DoorChangeEvent?.Invoke(this, e);
         }
 
+        protected virtual void OnDoorLock(DoorLockEventArgs e)
+        {
+            DoorLockEvent?.Invoke(this, e);
+        }
+
+
         public void LockDoor()
         {
-            _lockState = LockState.LOCKED;
+            OnDoorLock(new DoorLockEventArgs() { isLocked = true });
         }
         public void UnlockDoor()
         {
-            _lockState = LockState.UNLOCKED;
+            OnDoorLock(new DoorLockEventArgs() { isLocked = false });
         }
 
-        public bool OpenDoor()
+        public void OpenDoor()
         {
-            if (_lockState == LockState.UNLOCKED)
-            {
-                OnDoorChange(new DoorChangeEventArgs { IsOpen = true });
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            OnDoorChange(new DoorOpenEventArgs { IsOpen = true });
+
         }
 
-        public bool CloseDoor()
+        public void CloseDoor()
         {
-            //Probably can't happen, but added for insurance
-            if (_lockState == LockState.UNLOCKED)
-            {
-                OnDoorChange(new DoorChangeEventArgs { IsOpen = false });
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-
+            OnDoorChange(new DoorOpenEventArgs { IsOpen = false });
         }
+
     }
 }
