@@ -23,7 +23,6 @@ namespace Tests
         }
 
         [Test]
-        [TestCase(0.0, "")]
         [TestCase(2.3, "Phone fully charged. It can be safely removed.")]
         [TestCase(152.7, "Phone is charging.")]
         [TestCase(515.1, "ERROR: Potential short circuit. Disconnect phone immediately.")]
