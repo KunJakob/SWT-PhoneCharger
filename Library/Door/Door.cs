@@ -6,8 +6,19 @@ namespace Ladeskab.Door
     public class Door : IDoor
     {
 
+
+
+        private enum LockState
+        {
+            LOCKED,
+            UNLOCKED
+        }
+
+        private LockState _lockState;
+
         public Door()
         {
+            _lockState = LockState.UNLOCKED;
         }
 
         public event EventHandler<DoorChangeEventArgs> DoorChangeEvent;
@@ -19,21 +30,39 @@ namespace Ladeskab.Door
 
         public void LockDoor()
         {
-            throw new NotImplementedException();
+            _lockState = LockState.LOCKED;
         }
         public void UnlockDoor()
         {
-            throw new NotImplementedException();
+            _lockState = LockState.UNLOCKED;
         }
 
-        public void OpenDoor()
+        public bool OpenDoor()
         {
-            OnDoorChange(new DoorChangeEventArgs { IsOpen = true });
+            if (_lockState == LockState.UNLOCKED)
+            {
+                OnDoorChange(new DoorChangeEventArgs { IsOpen = true });
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
-        public void CloseDoor()
+        public bool CloseDoor()
         {
-            OnDoorChange(new DoorChangeEventArgs { IsOpen = false });
+            //Probably can't happen, but added for insurance
+            if (_lockState == LockState.UNLOCKED)
+            {
+                OnDoorChange(new DoorChangeEventArgs { IsOpen = false });
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
         }
     }
 }

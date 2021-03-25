@@ -8,7 +8,7 @@ namespace Ladeskab.Door
         public event EventHandler<DoorChangeEventArgs> DoorChangeEvent;
         public void LockDoor();
         public void UnlockDoor();
-        public void OpenDoor();
-        public void CloseDoor();
+        public bool OpenDoor();
+        public bool CloseDoor();
     }
 }

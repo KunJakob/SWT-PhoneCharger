@@ -35,11 +35,11 @@ namespace Ladeskab.StationControl
             _charger = Charger;
             _door = Door;
             _rfidReader = RfidReader;
-            _door.DoorChangeEvent += HandleDoorEvent;
+            _door.DoorChangeEvent += HandleDoorChange;
             _rfidReader.ReadIdEvent += HandleRfidRead;
         }
 
-        public void HandleDoorEvent(object sender, DoorChangeEventArgs e)
+        public void HandleDoorChange(object sender, DoorChangeEventArgs e)
         {
             _doorState = e.IsOpen;
             if (_doorState)
