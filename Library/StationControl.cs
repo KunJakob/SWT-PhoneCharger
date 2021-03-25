@@ -1,6 +1,7 @@
 ﻿using Ladeskab.ChargeControl;
 using Ladeskab.Door;
 using Ladeskab.Events;
+using Ladeskab.RfidReader;
 using System;
 using System.IO;
 namespace Ladeskab.StationControl
@@ -15,27 +16,39 @@ namespace Ladeskab.StationControl
             DoorOpen
         };
 
-        // Her mangler flere member variable
+        //state vars
         private LadeskabState _state;
-        private IChargeControl _charger;
         private bool _doorState;
         private int _oldId;
         private int _currentId;
+
+        //dependeny instances
+        private IChargeControl _charger;
         private IDoor _door;
+        private IRfidReader _rfidReader;
 
         private readonly string logFile = "logfile.txt"; // Navnet på systemets log-fil
 
-        // Her mangler constructor
-        public StationControl(IChargeControl Charger, IDoor Door)
+        
+        public StationControl(IChargeControl Charger, IDoor Door, IRfidReader RfidReader)
         {
             _charger = Charger;
             _door = Door;
+            _rfidReader = RfidReader;
+            _door.DoorChangeEvent += HandleDoorEvent;
+            _rfidReader.ReadIdEvent += HandleRfidRead;
         }
 
         public void HandleDoorEvent(object sender, DoorChangeEventArgs e)
         {
             _doorState = e.IsOpen;
-            //handler
+            if (_doorState)
+            {
+                //?
+            } else
+            {
+                //?
+            }
         }
 
         public void HandleRfidRead(object sender, RfidReadEventArgs e)

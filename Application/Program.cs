@@ -15,10 +15,15 @@ class Program
         //set up DI
         ServiceProvider ServiceProvider;
         ServiceCollection services = new ServiceCollection();
+
+        //register services and build service provider
         ConfigureServices(services);
         ServiceProvider = services.BuildServiceProvider();
+
+        //get instances
         IDoor door = ServiceProvider.GetService<IDoor>();
         IRfidReader rfidReader = ServiceProvider.GetService<IRfidReader>();
+
         //local vars
         bool finish = false;
         do
@@ -34,11 +39,11 @@ class Program
                     break;
 
                 case 'O':
-                    door.OnDoorOpen();
+                    door.OpenDoor();
                     break;
 
                 case 'C':
-                    door.OnDoorClose();
+                    door.CloseDoor();
                     break;
 
                 case 'R':
@@ -46,7 +51,7 @@ class Program
                     string idString = System.Console.ReadLine();
 
                     int id = Convert.ToInt32(idString);
-                    rfidReader.OnRfidRead(id);
+                    rfidReader.Read(id);
                     break;
 
                 default:
