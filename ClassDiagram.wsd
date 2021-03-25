@@ -13,8 +13,8 @@ class StationControl
     + StationControl(IDoor, IChargeControl, IRfidReader, IDisplay, ILogger) 
 
     - RfidDetected(int) : void
-      #HandleDoorChange(object, DoorOpenEventArgs) : void
-    + #HandleRfidRead(object, RfidReadEventArgs) : void
+     # HandleDoorChange(object, DoorOpenEventArgs) : void
+     # HandleRfidRead(object, RfidReadEventArgs) : void
 }
 
 
@@ -29,20 +29,16 @@ interface IDoor
     + CloseDoor() : bool
 }
 
-class DoorClassSimulator 
+class Door 
 {
     - _lockState : LockState
-    //#OnDoorChange//(DoorOpenEventArgs) : void
-
-    + LockDoor() : void
-    + UnlockDoor() : void
-    + OpenDoor() : bool
-    + CloseDoor() : bool
+    # //OnDoorChange//(DoorOpenEventArgs) : void
+    + Door() :
 }
 
 
-IDoor <-- DoorClassSimulator
-StationControl <-- IDoor
+IDoor <|-- Door
+StationControl --> IDoor
 
 /' RFID READER '/
 
@@ -54,10 +50,7 @@ interface IRfidReader{
 
 class RfidReader
 {
-    + _SC : StationControl 
-    + _id : int
-
-    + OnRfidRead(int) : void    
+    + _id : int  
 }
 
 IRfidReader <-- StationControl
@@ -71,20 +64,17 @@ class UsbChargerSimulator
     - OverloadCurrent : const double
     - ChargeTimeMinutes : const int
     - CurrentTickInterval : const int
-
-    + CurrentValueEvent : Event
-    + CurrentValue : double
-    + Connected : bool
-
     - _overload : bool
     - _charging : bool
     - _timer : timer
     - _ticksSinceStart : int
 
+    + CurrentValueEvent : Event
+
+    + UsbChargerSimulator() :
     + SimulateConnected(Bool) : void
     + SimulateOverload(Bool) : void
-    + StartChange() : void 
-    + StopCharge() : void  
+
     - TimerOnElapsed(Object, ElapsedEventArgs): void
     - OnNewCurrent() : void
 }
@@ -96,13 +86,28 @@ interface IUsbCharger
     +StartCharge(): void
     +StopCharge(): void
 }
+
+IUsbCharger <|-- UsbChargerSimulator
+
+/' ChargeControl '/
+
 interface IChargeControl
 {
     +Connected: bool
     +StartCharge(): void
     +StopCharge(): void
 }
-
+class ChargeControl
+{
+    - _charger : IUsbCharger
+    - _display : IDisplay
+    # //CurrentChangeHandler//(Object, CurrentEventArgs) : void
+    + ChargeControl(IUsbCharger, IDisplay)
+}
+IChargeControl <|-- ChargeControl
+StationControl --> IChargeControl
+IUsbCharger <-- ChargeControl
+IDisplay <-- ChargeControl
 /' Display '/
 
 interface IDisplay
@@ -114,9 +119,6 @@ interface IDisplay
 
 class Display
 {
-    + NotifyCharge(string) : void
-    + NotifyStation(string) : void
-    + ReadInput() : string
 
     - _PreviousCallStringCharge : string
     - _PreviousCallStringStation : string
@@ -132,21 +134,17 @@ class Logger
     - _filename : string
     - GetFormattedTime() : string
     + Logger(string, string) : 
-    + WriteToLog(string) : void
+
 }
 
 
-class ILogger
+interface ILogger
 {
     + WriteToLog(string) : void
 }
 
-ILogger <-- Logger
-StationControl <-- ILogger
-
-IUsbCharger <-- UsbChargerSimulator
-IChargeControl <-- IUsbCharger
-StationControl <-- IChargeControl
+ILogger <|-- Logger
+StationControl --> ILogger
 
 
 @enduml
