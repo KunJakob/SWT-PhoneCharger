@@ -75,6 +75,7 @@ namespace Tests
         [Test]
         public void HandleDoorChange_Ignores_Events_If_Locked()
         {
+            _chargeControl.Connected.Returns(true);
             //Arrange
             _rfidReader.ReadIdEvent += Raise.EventWith<RfidReadEventArgs>(_rfidReader, new RfidReadEventArgs() { Id = 5 });
             
@@ -133,6 +134,18 @@ namespace Tests
             _rfidReader.ReadIdEvent += Raise.EventWith<RfidReadEventArgs>(_rfidReader, new RfidReadEventArgs() { Id = 3 });
             //Assert
             _display.Received().NotifyStation("Wrong RFID tag");
+        }
+
+        [Test]
+        public void HandleRfidRead_Ignored_If_Door_Open()
+        {
+            //Arrange
+            _door.DoorChangeEvent += Raise.EventWith<DoorOpenEventArgs>(_door, new DoorOpenEventArgs() { IsOpen = true });
+            _display.ClearReceivedCalls(); //clear the print from opening the door
+            //Act
+            _rfidReader.ReadIdEvent += Raise.EventWith<RfidReadEventArgs>(_rfidReader, new RfidReadEventArgs() { Id = 3 });
+            //Assert
+            _display.DidNotReceive().NotifyStation(Arg.Any<string>());
         }
     }
 }
