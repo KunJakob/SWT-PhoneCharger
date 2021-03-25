@@ -6,7 +6,7 @@ participant Door
 participant RFIDReader
 participant StationControl
 participant ChargeControl
-actor LogFile
+participant LogFile
 
 User -> Door : opens 
 
