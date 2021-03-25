@@ -2,8 +2,6 @@
 using System;
 using System.IO;
 
-
-
 namespace Ladeskab.Display.Text
 {
     [TestFixture]
@@ -50,6 +48,5 @@ namespace Ladeskab.Display.Text
 
             Assert.That(output.ToString(), Is.EqualTo(expectedOutput));
         }
-
     }
 }

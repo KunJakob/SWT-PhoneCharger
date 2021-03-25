@@ -1,13 +1,12 @@
-﻿
-using Ladeskab.ChargeControl;
-using Ladeskab.Door;
-using Microsoft.Extensions.DependencyInjection;
-using Ladeskab.RfidReader;
-using System;
-using Ladeskab.UsbCharger;
-using Ladeskab.StationControl;
-using Ladeskab.Logger;
+﻿using Ladeskab.ChargeControl;
 using Ladeskab.Display;
+using Ladeskab.Door;
+using Ladeskab.Logger;
+using Ladeskab.RfidReader;
+using Ladeskab.StationControl;
+using Ladeskab.UsbCharger;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 
 class Program
 {
