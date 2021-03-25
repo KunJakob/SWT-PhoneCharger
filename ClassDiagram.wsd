@@ -1,0 +1,152 @@
+@startuml
+class StationControl
+{
+    - _state : LadeskabState 
+    - _oldId : int 
+    - _charger : IChargeControl
+    - _door : IDoor 
+    - _logger : ILogger
+    - _display : IDisplay
+    - _rfidReader : IRfidReader
+
+
+    + StationControl(IDoor, IChargeControl, IRfidReader, IDisplay, ILogger) 
+
+    - RfidDetected(int) : void
+      #HandleDoorChange(object, DoorOpenEventArgs) : void
+    + #HandleRfidRead(object, RfidReadEventArgs) : void
+}
+
+
+/' Door '/
+
+interface IDoor
+{
+    + DoorChangeEvent(object, DoorOpenEventArgs) : EventHandler
+    + LockDoor() : void
+    + UnlockDoor() : void
+    + OpenDoor() : bool
+    + CloseDoor() : bool
+}
+
+class DoorClassSimulator 
+{
+    - _lockState : LockState
+    //#OnDoorChange//(DoorOpenEventArgs) : void
+
+    + LockDoor() : void
+    + UnlockDoor() : void
+    + OpenDoor() : bool
+    + CloseDoor() : bool
+}
+
+
+IDoor <-- DoorClassSimulator
+StationControl <-- IDoor
+
+/' RFID READER '/
+
+interface IRfidReader{
+
+    + _SC : StationControl 
+    + OnRfidRead(int) : void   
+}
+
+class RfidReader
+{
+    + _SC : StationControl 
+    + _id : int
+
+    + OnRfidRead(int) : void    
+}
+
+IRfidReader <-- StationControl
+IRfidReader <-- RfidReader
+
+/' USB Charger '/
+class UsbChargerSimulator
+{
+    - MaxCurrent : const double
+    - FullyChargedCurrent : const double
+    - OverloadCurrent : const double
+    - ChargeTimeMinutes : const int
+    - CurrentTickInterval : const int
+
+    + CurrentValueEvent : Event
+    + CurrentValue : double
+    + Connected : bool
+
+    - _overload : bool
+    - _charging : bool
+    - _timer : timer
+    - _ticksSinceStart : int
+
+    + SimulateConnected(Bool) : void
+    + SimulateOverload(Bool) : void
+    + StartChange() : void 
+    + StopCharge() : void  
+    - TimerOnElapsed(Object, ElapsedEventArgs): void
+    - OnNewCurrent() : void
+}
+
+interface IUsbCharger
+{
+    +CurrentValue: Double
+    +Connected: bool
+    +StartCharge(): void
+    +StopCharge(): void
+}
+interface IChargeControl
+{
+    +Connected: bool
+    +StartCharge(): void
+    +StopCharge(): void
+}
+
+/' Display '/
+
+interface IDisplay
+{
+    + NotifyCharge(string) : void
+    + NotifyStation(string) : void
+    + ReadInput() : string
+}
+
+class Display
+{
+    + NotifyCharge(string) : void
+    + NotifyStation(string) : void
+    + ReadInput() : string
+
+    - _PreviousCallStringCharge : string
+    - _PreviousCallStringStation : string
+}
+    IDisplay <|-- Display
+    StationControl --> IDisplay
+
+/' Logger '/
+
+class Logger
+{
+    - _filepath : string
+    - _filename : string
+    - GetFormattedTime() : string
+    + Logger(string, string) : 
+    + WriteToLog(string) : void
+}
+
+
+class ILogger
+{
+    + WriteToLog(string) : void
+}
+
+ILogger <-- Logger
+StationControl <-- ILogger
+
+IUsbCharger <-- UsbChargerSimulator
+IChargeControl <-- IUsbCharger
+StationControl <-- IChargeControl
+
+
+@enduml
