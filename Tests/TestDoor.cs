@@ -49,7 +49,9 @@ namespace DoorSimulator.Test
                 WasRaised = true;
                 IsOpen = e.IsOpen;
                 _sender = sender;
-            }
+            } /*
+               * See my comment on the next MockHandler
+               */
 
             _uut.DoorChangeEvent += new EventHandler<DoorOpenEventArgs>(MockHandler);
             _uut.OpenDoor();
@@ -73,7 +75,8 @@ namespace DoorSimulator.Test
                 WasRaised = true;
                 IsOpen = e.IsOpen;
                 _sender = sender;
-            }
+            } /* This is a mock for the test, it is supposed to fail, so the coverage report on jenkins gives some warnings.
+               * This is supposed to happen. */
 
             _uut.DoorChangeEvent += new EventHandler<DoorOpenEventArgs>(MockHandler);
             _uut.OpenDoor();
