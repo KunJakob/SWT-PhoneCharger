@@ -25,7 +25,7 @@ class Program
         IDoor door = ServiceProvider.GetService<IDoor>();
         IRfidReader rfidReader = ServiceProvider.GetService<IRfidReader>();
         IDisplay Display = ServiceProvider.GetService<IDisplay>();
-
+        StationControl _stationControl = ServiceProvider.GetService<StationControl>();
         //local vars
         bool finish = false;
         do
@@ -51,7 +51,7 @@ class Program
                 case 'R':
                     Display.notifyStation("Indtast RFID id: ");
                     string idString = System.Console.ReadLine();
-
+                    //fix maybe?
                     int id = Convert.ToInt32(idString);
                     rfidReader.Read(id);
                     break;

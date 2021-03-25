@@ -11,11 +11,6 @@ namespace Ladeskab.Events
         public bool IsOpen { get; set; }
     }
 
-    public class DoorLockEventArgs : EventArgs
-    {
-        public bool isLocked { get; set; }
-    }
-
     public class CurrentEventArgs : EventArgs
     {
         // Value in mA (milliAmpere)
