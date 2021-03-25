@@ -6,6 +6,8 @@ namespace Ladeskab.Display
     public class Display : IDisplay
     {
 
+        // There are a few minor coverage issues with the try/catch/finally blocks, due to a lack of a proper catch block. This causes the "}" of the try block to fail in coverage.
+
         private string _PreviousCallStringCharge { get; set; }
         private string _PreviousCallStringStation { get; set; }
 

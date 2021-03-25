@@ -21,11 +21,7 @@ namespace Ladeskab.ChargeControl
         protected virtual void CurrentChangeHandler(object sender, CurrentEventArgs e)
         {
             double Current = e.Current;
-            if (Current == 0)
-            {
-                _display.NotifyCharge("");
-            }
-            else if (0 < Current && Current <= 5)
+            if (0 < Current && Current <= 5)
             {
                 _display.NotifyCharge("Phone fully charged. It can be safely removed.");
             }

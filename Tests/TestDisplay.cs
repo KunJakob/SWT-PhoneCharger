@@ -49,19 +49,17 @@ namespace Ladeskab.Display.Text
             Assert.That(output.ToString(), Is.EqualTo(expectedOutput));
         }
 
-        //The method behind this test is, our output into console should still only be one call worth of text, as the 2nd call will fail due to being the same call.
         [Test]
-        public void Notify_DuplicateCallFails()
+        public void Notify_DuplicateCall_ReturnsNoPrint()
         {
 
+            _uut.NotifyCharge("test");
             var output = new StringWriter();
             Console.SetOut(output);
 
             _uut.NotifyCharge("test");
-            _uut.NotifyCharge("test");
 
-            var expectedOutput = "######### " + "Charge - " + DateTime.Now.ToString() + " #########" +
-                "\r\n" + "test" + "\r\n";
+            var expectedOutput = "";
 
             Assert.That(output.ToString(), Is.EqualTo(expectedOutput));
         }
