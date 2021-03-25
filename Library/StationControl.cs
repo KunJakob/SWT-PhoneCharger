@@ -1,14 +1,12 @@
 ﻿using Ladeskab.ChargeControl;
 using Ladeskab.Door;
+using Ladeskab.Events;
 using System;
 using System.IO;
-
 namespace Ladeskab.StationControl
 {
     public class StationControl
     {
-
-
         // Enum med tilstande ("states") svarende til tilstandsdiagrammet for klassen
         private enum LadeskabState
         {
@@ -20,18 +18,32 @@ namespace Ladeskab.StationControl
         // Her mangler flere member variable
         private LadeskabState _state;
         private IChargeControl _charger;
+        private bool _doorState;
         private int _oldId;
-        private readonly IDoor _door;
+        private int _currentId;
+        private IDoor _door;
 
-        private string logFile = "logfile.txt"; // Navnet på systemets log-fil
+        private readonly string logFile = "logfile.txt"; // Navnet på systemets log-fil
 
-        public StationControl(IDoor Door, IChargeControl ChargeControl)
+        // Her mangler constructor
+        public StationControl(IChargeControl Charger, IDoor Door)
         {
+            _charger = Charger;
             _door = Door;
-            _charger = ChargeControl;
-            _charger.Connected = false;
-            _state = LadeskabState.Available;
         }
+
+        public void HandleDoorEvent(object sender, DoorChangeEventArgs e)
+        {
+            _doorState = e.IsOpen;
+            //handler
+        }
+
+        public void HandleRfidRead(object sender, RfidReadEventArgs e)
+        {
+            _currentId = e.Id;
+            RfidDetected(_currentId);
+        }
+
 
         // Eksempel på event handler for eventet "RFID Detected" fra tilstandsdiagrammet for klassen
         private void RfidDetected(int id)
@@ -82,56 +94,11 @@ namespace Ladeskab.StationControl
                     {
                         Console.WriteLine("Forkert RFID tag");
                     }
-                    
 
                     break;
             }
         }
 
-
         // Her mangler de andre trigger handlere
-        public void OnDoorClose()
-        {
-            if (_state == LadeskabState.Locked)
-            {
-                Console.WriteLine("Door is Locked, please scan your RFID card to open.");
-                return;
-            }
-            if (_state == LadeskabState.Available)
-            {
-                Console.WriteLine("You close the door without locking it.");
-                return;
-            }
-            if (_state == LadeskabState.DoorOpen)
-            {
-                Console.WriteLine("Please scan your RFID card to lock.");
-                _state = LadeskabState.Available;
-            }
-            
-        }
-
-        public void OnDoorOpen()
-        {
-            if(_state == LadeskabState.Locked)
-            {
-                Console.WriteLine("Door is locked, scan your RFID card to open.");
-                return;
-            }
-            if (_state != LadeskabState.DoorOpen)
-            {
-                _state = LadeskabState.DoorOpen;
-                Console.WriteLine("Door is open, type \"ok\" to connect your phone to the charger.");
-                string input = Console.ReadLine();
-                if (input == "ok")
-                {
-                    _charger.Connected = true;
-                }
-            }
-        }
-
-        public void OnRfidReadEvent(int id)
-        {
-            RfidDetected(id);
-        }
     }
 }
