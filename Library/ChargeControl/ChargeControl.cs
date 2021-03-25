@@ -9,41 +9,47 @@ namespace Ladeskab.ChargeControl
     {
 
         private IUsbCharger _charger;
-        public ChargeControl(IUsbCharger Charger)
+        private IDisplay _display;
+
+        public ChargeControl(IUsbCharger Charger, IDisplay Display)
         {
             _charger = Charger;
             _charger.CurrentValueEvent += CurrentChangeHandler;
+            _display = Display;
         }
-
 
         protected virtual void CurrentChangeHandler(object sender, CurrentEventArgs e)
         {
             double Current = e.Current;
             if (Current == 0)
             {
-                //Der er ingen forbindelse til en telefon, eller ladning er ikke startet. Displayet viser ikke noget om ladning.
-            } else if (0 < Current && Current <= 5) {
-                //Opladningen er tilendebragt, og USB ladningen kan stoppes. Displayet viser, at telefonen er fuldt opladet.
-            } else if (5 < Current && Current <= 500)
-            {
-                //Opladningen foregår normalt. Displayet viser, at ladning foregår.
-            } else if (Current > 500)
-            {
-                //Der er noget galt, fx en kortslutning. USB ladningen skal straks stoppes. Displayet viser en fejlmeddelelse.
+                _display.notifyCharge("");
             }
-            
+            else if (0 < Current && Current <= 5)
+            {
+                _display.notifyCharge("Phone fully charged. It can be safely removed.");
+            }
+            else if (5 < Current && Current <= 500)
+            {
+                _display.notifyCharge("Phone is charging.");
+            }
+            else if (Current > 500)
+            {
+                _display.notifyCharge("ERROR: Potential short circuit. Disconnect phone immediately.");
+            }
+
         }
 
-        public bool Connected { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public bool Connected { get => _charger.Connected; }
 
         public void StartCharge()
         {
-            throw new NotImplementedException();
+            _charger.StartCharge();
         }
 
         public void StopCharge()
         {
-            throw new NotImplementedException();
+            _charger.StopCharge();
         }
     }
 }
