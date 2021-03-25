@@ -54,7 +54,7 @@ class RfidReader
 }
 
 IRfidReader <-- StationControl
-IRfidReader <-- RfidReader
+IRfidReader <|-- RfidReader
 
 /' USB Charger '/
 class UsbChargerSimulator
