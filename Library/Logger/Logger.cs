@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 
-namespace Ladeskab.Log
+namespace Ladeskab.Logger
 {
     public class Logger : ILogger
     {

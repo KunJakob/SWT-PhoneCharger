@@ -69,7 +69,7 @@ class Program
         services.AddSingleton<IChargeControl, ChargeControl>();
         services.AddSingleton<IRfidReader, RfidReader>();
         services.AddSingleton<IUsbCharger, UsbChargerSimulator>();
-        string LogPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+        string LogPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)+"/";
         services.AddSingleton<ILogger>(new Logger(LogPath, "LogFile.txt"));
     }
 }
