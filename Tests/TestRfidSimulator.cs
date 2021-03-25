@@ -10,12 +10,12 @@ namespace RfidSimulator.Test
     [TestFixture]
     public class TestRfidSimulator
     {
-        private RfidReaderSimulator _uut;
+        private RfidReader _uut;
 
         [SetUp]
         public void Setup()
         {
-            _uut = new RfidReaderSimulator();
+            _uut = new RfidReader();
 
         }
 

@@ -61,7 +61,7 @@ class Program
         services.AddSingleton<StationControl>();
         services.AddSingleton<IDoor, Door>();
         services.AddSingleton<IChargeControl, ChargeControl>();
-        services.AddSingleton<IRfidReader, RfidReaderSimulator>();
+        services.AddSingleton<IRfidReader, RfidReader>();
         services.AddSingleton<IUsbCharger, UsbChargerSimulator>();
     }
 }
