@@ -28,7 +28,7 @@ namespace ChargerLocker.Display.Text
             _uut.NotifyStation(testVar);
 
             var expectedOutput = "######### " +"Station - " + DateTime.Now.ToString() + " #########" +
-                "\r\n"+ testVar +"\r\n";
+                "\r\n"+ testVar + "\n\r\n";
 
             Assert.That(output.ToString(), Is.EqualTo(expectedOutput));
         }
@@ -44,7 +44,7 @@ namespace ChargerLocker.Display.Text
             _uut.NotifyCharge(testVar);
 
             var expectedOutput = "######### "+ "Charge - " + DateTime.Now.ToString() + " #########" +
-                "\r\n"+ testVar + "\r\n";
+                "\r\n"+ testVar + "\n\r\n";
 
             Assert.That(output.ToString(), Is.EqualTo(expectedOutput));
         }

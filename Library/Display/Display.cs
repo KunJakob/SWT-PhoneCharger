@@ -39,7 +39,7 @@ namespace ChargerLocker.Display
             catch{}
             finally
             {
-                Console.WriteLine(msg);
+                Console.WriteLine(msg+"\n");
             }
         }
         public void NotifyStation(string msg)
@@ -67,7 +67,7 @@ namespace ChargerLocker.Display
             catch{}
             finally
             {
-                Console.WriteLine(msg);
+                Console.WriteLine(msg + "\n");
             }
         }
         public string ReadInput()

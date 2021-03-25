@@ -52,8 +52,16 @@ class Program
                     Display.NotifyStation("Input RFID id: ");
                     string idString = Display.ReadInput();
                     //fix maybe?
-                    int id = Convert.ToInt32(idString);
-                    rfidReader.Read(id);
+                    try
+                    {
+                        int id = Convert.ToInt32(idString);
+                        rfidReader.Read(id);
+                    }
+                    catch (FormatException e)
+                    {
+                        Display.NotifyStation("You must input a valid number!");
+
+                    }
                     break;
 
                 default:
@@ -70,8 +78,8 @@ class Program
         services.AddSingleton<IChargeControl, ChargeControl>();
         services.AddSingleton<IRfidReader, RfidReader>();
         services.AddSingleton<IUsbCharger, UsbChargerSimulator>();
-        string LogPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)+"/";
+        string LogPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/";
         services.AddSingleton<ILogger>(new Logger(LogPath, "LogFile.txt"));
-        services.AddSingleton<IDisplay,Display>();
+        services.AddSingleton<IDisplay, Display>();
     }
 }
