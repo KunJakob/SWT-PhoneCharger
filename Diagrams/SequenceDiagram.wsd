@@ -13,7 +13,7 @@ User -> Door : opens
 Door -> StationControl : << Door Open >>
 activate StationControl
 
-StationControl -> Display : Show: "Connect"
+StationControl -> Display : Show: "Connect your phone"
 deactivate StationControl
 
 User -> ChargeControl : connects phone
@@ -39,7 +39,7 @@ deactivate StationControl
 
     ChargeControl -> StationControl : << false >>
 
-    StationControl -> Display : Show "Phone not connected"
+    StationControl -> Display : Show "Your phone is not connected properly. Try again"
 
     end
 
@@ -47,12 +47,20 @@ deactivate StationControl
     deactivate ChargeControl
 
     StationControl -> ChargeControl : << Start Charge >>
-    
+  loop If Phone Connected
+    alt If 5 mA < Current <= 500 mA  
+      ChargeControl -> Display : Show "Phone is charging"
+    else If Current > 500 mA
+      ChargeControl -> Display : "ERROR: Potential short circuit. Disconnect phone immediately."
+    else If 0 mA < Current <= 5 mA
+      StationControl -> Display : Show "Phone fully charged. It can be safely removed."
+    end 
+  end
     StationControl -> Door : << Lock Door >>
 
     StationControl -> LogFile : << Log Door ID >>
 
-    StationControl -> Display : Show "Locker occupied"
+    StationControl -> Display : Show "The locker is locked. Use your RFID tag to unlock it."
     deactivate StationControl
 
   loop If RFID Wrong    
@@ -70,7 +78,7 @@ deactivate StationControl
     deactivate StationControl
     StationControl -> StationControl : << false >>
 
-    StationControl -> Display : Show "RFID Error"
+    StationControl -> Display : Show "Wrong RFID tag"
    end
 
     StationControl -> StationControl : true
@@ -78,13 +86,15 @@ deactivate StationControl
     
 
     deactivate StationControl
+
+ 
     StationControl -> ChargeControl : << Stop Charge >>
 
     StationControl -> Door : << Unlock Door >>
 
     StationControl -> LogFile : << Log Door ID
 
-    StationControl -> Display : Show "Remove phone"
-
+    StationControl -> Display : Show "Grab your phone and close the door"
+    
     deactivate StationControl
 @enduml
