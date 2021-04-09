@@ -27,15 +27,16 @@ activate StationControl
 StationControl -> Display : Show: "Scan RFID"
 deactivate StationControl
 
-   loop If Phone Not Connected
+loop If Phone Not Connected
 
-    User -> RFIDReader : scans rfid
+User -> RFIDReader : scans rfid
 
-    RFIDReader -> StationControl : << RFID Detected >>
-    activate StationControl
+RFIDReader -> StationControl : << RFID Detected >>
 
-    StationControl -> ChargeControl : << Is Connected >>
-    activate ChargeControl
+activate StationControl
+
+  StationControl -> ChargeControl : << Is Connected >>
+  activate ChargeControl
 
     ChargeControl -> StationControl : << false >>
 
@@ -44,31 +45,35 @@ deactivate StationControl
     end
 
     ChargeControl -> StationControl : << true >>
-    deactivate ChargeControl
+  deactivate ChargeControl
 
-    StationControl -> ChargeControl : << Start Charge >>
-  loop If Phone Connected
-    alt If 5 mA < Current <= 500 mA  
-      ChargeControl -> Display : Show "Phone is charging"
-    else If Current > 500 mA
-      ChargeControl -> Display : "ERROR: Potential short circuit. Disconnect phone immediately."
-    else If 0 mA < Current <= 5 mA
-      StationControl -> Display : Show "Phone fully charged. It can be safely removed."
+  StationControl -> ChargeControl : << Start Charge >>
+  activate ChargeControl
+
+    loop If Phone Connected
+      alt If 5 mA < Current <= 500 mA  
+        ChargeControl -> Display : Show "Phone is charging"
+      else If Current > 500 mA
+        ChargeControl -> Display : "ERROR: Potential short circuit. Disconnect phone immediately."
+      else If 0 mA < Current <= 5 mA
+        ChargeControl -> Display : Show "Phone fully charged. It can be safely removed."
+    deactivate ChargeControl
     end 
   end
-    StationControl -> Door : << Lock Door >>
 
-    StationControl -> LogFile : << Log Door ID >>
+  StationControl -> Door : << Lock Door >>
 
-    StationControl -> Display : Show "The locker is locked. Use your RFID tag to unlock it."
-    deactivate StationControl
+  StationControl -> LogFile : << Log Door ID >>
 
-  loop If RFID Wrong    
+  StationControl -> Display : Show "The locker is locked. Use your RFID tag to unlock it."
+deactivate StationControl
 
-    User -> RFIDReader : scans rfid
+loop If RFID Wrong    
 
-    RFIDReader -> StationControl : << RFID Detected >>
-    activate StationControl
+User -> RFIDReader : scans rfid
+
+RFIDReader -> StationControl : << RFID Detected >>
+  activate StationControl
 
     
     StationControl -> StationControl : << Check ID >>
