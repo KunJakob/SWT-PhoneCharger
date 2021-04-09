@@ -90,7 +90,7 @@ namespace ChargerLocker.StationControl
                         _oldId = id;
                         _logger.WriteToLog("Locked with RFID: " + id);
 
-                        _display.NotifyStation("The locker is locked. Use your RFID tag to unlock it.");
+                        _display.NotifyStation("The locker is locked and your phone is charging. Use your RFID tag to unlock it.");
                         _state = LadeskabState.Locked;
                     }
                     else
